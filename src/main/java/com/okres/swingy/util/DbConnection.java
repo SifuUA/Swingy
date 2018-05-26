@@ -6,9 +6,7 @@ import java.sql.SQLException;
 
 public class DbConnection {
 
-    /*private static final String USERNAME = "root";
-    private static final String PASSWORD = "root";*/
-    private static final String SQCONN = "jdbc:sqlite:heroes.sqlite";
+    private static final String SQCONN = "jdbc:sqlite:game.sqlite";
 
     public static Connection getConnection() throws SQLException {
         try {

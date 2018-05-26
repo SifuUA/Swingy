@@ -2,13 +2,14 @@ package com.okres.swingy.model;
 
 public class Hero {
 
-
+    private int id;
     private String name;
     private int age;
     private String gender;
     private String hero_class;
 
-    public Hero(String name, int age, String gender, String hero_class) {
+    public Hero(int id, String name, int age, String gender, String hero_class) {
+        this.id = id;
         this.name = name;
         this.age = age;
         this.gender = gender;
@@ -45,5 +46,13 @@ public class Hero {
 
     public void setHero_class(String hero_class) {
         this.hero_class = hero_class;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

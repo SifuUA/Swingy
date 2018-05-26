@@ -1,8 +1,11 @@
 package com.okres.swingy.view;
 
+import com.okres.swingy.model.LoginModel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.SQLException;
 
 public class SelectWindow extends JFrame {
 
@@ -16,6 +19,7 @@ public class SelectWindow extends JFrame {
     private JScrollPane jScrollPane1;
     private JScrollPane jScrollPane2;
     private JTextArea jTextArea1;
+    private LoginModel loginModel;
 
 
     public SelectWindow() {
@@ -35,24 +39,29 @@ public class SelectWindow extends JFrame {
         jButton1 = new JButton();
         jButton4 = new JButton();
         jLabel4 = new JLabel();
+        loginModel = new LoginModel();
+        String sql = "select * from heroes";
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
         SelectWindow.setPreferredSize(new Dimension(700, 600));
         SelectWindow.setLayout(null);
 
         jList1.setFont(new Font("Noto Sans", 1, 12)); // NOI18N
-        jList1.setModel(new AbstractListModel<String>() {
-            String[] strings = {"Item 1", "Item 2", "Item 3", "Item 4", "Item 5"};
-
-            public int getSize() {
-                return strings.length;
-            }
-
-            public String getElementAt(int i) {
-                return strings[i];
+        try {
+            loginModel.heroNameList(jList1, sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        jList1.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                try {
+                     jList1MouseClicked(evt);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         });
+
         jScrollPane1.setViewportView(jList1);
 
         SelectWindow.add(jScrollPane1);
@@ -82,6 +91,7 @@ public class SelectWindow extends JFrame {
         jButton1.setText("Select Hero");
         SelectWindow.add(jButton1);
         jButton1.setBounds(110, 470, 110, 34);
+        jButton1.setEnabled(false);
 
         jButton4.setFont(new Font("Noto Sans", 1, 14)); // NOI18N
         jButton4.setText("New Hero");
@@ -121,6 +131,15 @@ public class SelectWindow extends JFrame {
         );
 
         pack();
+    }
+
+    private void jList1MouseClicked(MouseEvent evt) throws SQLException {
+        if (jList1.getSelectedValue() != null) {
+            jButton1.setEnabled(true);
+            loginModel.putOnTextErea(jTextArea1, jList1.getSelectedIndex());
+            System.out.println(jList1.getSelectedValue());
+            System.out.println(jList1.getSelectedIndex());
+        }
     }
 
     private void jButton4ActionPerformed(ActionEvent evt) {
