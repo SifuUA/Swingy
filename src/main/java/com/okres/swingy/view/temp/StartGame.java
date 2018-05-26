@@ -1,6 +1,7 @@
-package com.okres.swingy.view;
+package com.okres.swingy.view.temp;
 
 import com.okres.swingy.model.Hero;
+import com.okres.swingy.view.WindowManager;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -47,7 +48,7 @@ public class StartGame extends JFrame implements WindowManager {
 
         public MenuPane() {
             try {
-                img = ImageIO.read(new File("/home/okres/IdeaProjects/Swingy/vtr1a.jpg"));
+                img = ImageIO.read(new File("vtr1a.jpg"));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -169,6 +170,8 @@ public class StartGame extends JFrame implements WindowManager {
     }
 
     public void showSelectHero() {
+        SelectHero selectHero = new SelectHero(this);
+
     }
 
     public void showNewHero() {
@@ -178,4 +181,5 @@ public class StartGame extends JFrame implements WindowManager {
     public void showSelectMission(Hero hero) {
 
     }
+
 }
