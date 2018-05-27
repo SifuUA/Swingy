@@ -1,58 +1,32 @@
 package com.okres.swingy.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.validation.constraints.NotNull;
+
+@AllArgsConstructor
+@Getter
+@Setter
 public class Hero {
 
+    @NotNull
     private int id;
+    @NotNull
     private String name;
+    @NotNull
     private int age;
+    @NotNull
     private String gender;
+    @NotNull
     private String hero_class;
-
-    public Hero(int id, String name, int age, String gender, String hero_class) {
-        this.id = id;
-        this.name = name;
-        this.age = age;
-        this.gender = gender;
-        this.hero_class = hero_class;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public String getHero_class() {
-        return hero_class;
-    }
-
-    public void setHero_class(String hero_class) {
-        this.hero_class = hero_class;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+    @NotNull
+    private int level;
+    @NotNull
+    private int experience;
+    @NotNull
+    private String attack;
+    @NotNull
+    private String defence;
 }

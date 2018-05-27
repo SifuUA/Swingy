@@ -1,5 +1,7 @@
 package com.okres.swingy.util;
 
+import lombok.Cleanup;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;

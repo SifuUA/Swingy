@@ -1,6 +1,7 @@
 package com.okres.swingy.view;
 
-import com.okres.swingy.model.LoginModel;
+import com.okres.swingy.controller.FileLoader;
+import com.okres.swingy.controller.LoginModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,6 +12,7 @@ public class SelectWindow extends JFrame {
 
     private JPanel SelectWindow;
     private JButton jButton1;
+    private JButton jButton2;
     private JButton jButton4;
     private JLabel jLabel2;
     private JLabel jLabel3;
@@ -37,6 +39,7 @@ public class SelectWindow extends JFrame {
         jLabel2 = new JLabel();
         jLabel3 = new JLabel();
         jButton1 = new JButton();
+        jButton2 = new JButton();
         jButton4 = new JButton();
         jLabel4 = new JLabel();
         loginModel = new LoginModel();
@@ -68,7 +71,7 @@ public class SelectWindow extends JFrame {
         jScrollPane1.setBounds(70, 100, 180, 320);
 
         jTextArea1.setColumns(20);
-        jTextArea1.setFont(new Font("Noto Sans", 1, 12)); // NOI18N
+        jTextArea1.setFont(new Font("Noto Sans", 1, 14)); // NOI18N
         jTextArea1.setRows(5);
         jScrollPane2.setViewportView(jTextArea1);
 
@@ -93,6 +96,17 @@ public class SelectWindow extends JFrame {
         jButton1.setBounds(110, 470, 110, 34);
         jButton1.setEnabled(false);
 
+
+        jButton2.setFont(new Font("Noto Sans", 1, 14)); // NOI18N
+        jButton2.setText("Load from file");
+        jButton2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        SelectWindow.add(jButton2);
+        jButton2.setBounds(349, 470, 130, 31);
+
         jButton4.setFont(new Font("Noto Sans", 1, 14)); // NOI18N
         jButton4.setText("New Hero");
         jButton4.addActionListener(new ActionListener() {
@@ -101,7 +115,7 @@ public class SelectWindow extends JFrame {
             }
         });
         SelectWindow.add(jButton4);
-        jButton4.setBounds(440, 470, 100, 31);
+        jButton4.setBounds(529, 470, 100, 31);
 
         jLabel4.setForeground(new Color(4, 5, 8));
         jLabel4.setIcon(new ImageIcon(getClass().getResource("/img/background4.png"))); // NOI18N
@@ -131,6 +145,10 @@ public class SelectWindow extends JFrame {
         );
 
         pack();
+    }
+
+    private void jButton2ActionPerformed(ActionEvent evt) {
+        new FileLoader().readFile();
     }
 
     private void jList1MouseClicked(MouseEvent evt) throws SQLException {
