@@ -4,11 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 
-@AllArgsConstructor
 @Getter
 @Setter
+@AllArgsConstructor
 public class Hero {
 
     @NotNull
@@ -16,6 +17,7 @@ public class Hero {
     @NotNull
     private String name;
     @NotNull
+    @Digits(integer = 100, fraction = 0)
     private int age;
     @NotNull
     private String gender;
@@ -29,4 +31,15 @@ public class Hero {
     private String attack;
     @NotNull
     private String defence;
+
+    public Hero(String name, int age, String gender, String hero_class, int level, int experience, String attack, String defence) {
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+        this.hero_class = hero_class;
+        this.level = level;
+        this.experience = experience;
+        this.attack = attack;
+        this.defence = defence;
+    }
 }

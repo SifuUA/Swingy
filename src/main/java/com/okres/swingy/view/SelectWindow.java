@@ -101,7 +101,11 @@ public class SelectWindow extends JFrame {
         jButton2.setText("Load from file");
         jButton2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                try {
+                    jButton2ActionPerformed(evt);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         });
         SelectWindow.add(jButton2);
@@ -147,7 +151,7 @@ public class SelectWindow extends JFrame {
         pack();
     }
 
-    private void jButton2ActionPerformed(ActionEvent evt) {
+    private void jButton2ActionPerformed(ActionEvent evt) throws SQLException {
         new FileLoader().readFile();
     }
 

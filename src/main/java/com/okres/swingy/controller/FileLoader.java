@@ -26,7 +26,7 @@ public class FileLoader {
     private List list;
 
 
-    public void readFile() {
+    public void readFile() throws SQLException {
         @NonNull
         String line;
 
@@ -38,11 +38,33 @@ public class FileLoader {
                             "level, experiance, attack, defence) " +
                             "VALUES (?,?,?,?,?,?,?,?)");
             while ((line = bufferedReader.readLine()) != null) {
-                /*for (String i : line.split(","))
-                {
-
-                    new Hero(line.split(",",))
-                }*/
+                if (line.equals(""))
+                    continue;
+                /*new Hero(line.split(",")[1].trim(),
+                        Integer.parseInt(line.split(",")[2].trim()),
+                        line.split(",")[3].trim(),
+                        line.split(",")[4].trim(),
+                        Integer.parseInt(line.split(",")[5].trim()),
+                        Integer.parseInt(line.split(",")[6].trim()),
+                        line.split(",")[7].trim(),
+                        line.split(",")[8].trim());*/
+                preparedStatement.setString(1,
+                        line.split(",")[0].trim());
+                preparedStatement.setInt(2,
+                        Integer.parseInt(line.split(",")[1].trim()));
+                preparedStatement.setString(3,
+                        line.split(",")[2].trim());
+                preparedStatement.setString(4,
+                        line.split(",")[3].trim());
+                preparedStatement.setInt(5,
+                        Integer.parseInt(line.split(",")[4].trim()));
+                preparedStatement.setInt(6,
+                        Integer.parseInt(line.split(",")[5].trim()));
+                preparedStatement.setString(7,
+                        line.split(",")[6].trim());
+                preparedStatement.setString(8,
+                        line.split(",")[7].trim());
+                preparedStatement.execute();
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -50,6 +72,9 @@ public class FileLoader {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+        finally {
+            connection.close();
         }
     }
 }
