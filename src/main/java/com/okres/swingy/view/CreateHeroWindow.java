@@ -1,11 +1,16 @@
 package com.okres.swingy.view;
 
+import com.okres.swingy.controller.FileLoader;
+import com.okres.swingy.controller.PaneController;
+import com.okres.swingy.model.NewHero;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.SQLException;
 
 public class CreateHeroWindow extends JFrame {
 
@@ -18,6 +23,7 @@ public class CreateHeroWindow extends JFrame {
     private JLabel jLabel8;
     private JLabel jLabel9;
     private JLabel jLabel10;
+    private ButtonGroup buttonGroup;
     private JRadioButton jRadioButton1;
     private JRadioButton jRadioButton2;
     private JSlider jSlider1;
@@ -43,6 +49,8 @@ public class CreateHeroWindow extends JFrame {
         jRadioButton1 = new JRadioButton();
         jRadioButton2 = new JRadioButton();
         jLabel5 = new JLabel();
+        buttonGroup = new ButtonGroup();
+        final NewHero newHero = new NewHero();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -51,6 +59,12 @@ public class CreateHeroWindow extends JFrame {
 
         jTextField2.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 2));
         CreateHeroWindow.add(jTextField2);
+        jTextField2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                newHero.setName(jTextField2.getText());
+            }
+        });
         jTextField2.setBounds(350, 100, 200, 50);
 
         jLabel6.setFont(new Font("Noto Sans", 1, 18)); // NOI18N
@@ -65,11 +79,12 @@ public class CreateHeroWindow extends JFrame {
         CreateHeroWindow.add(jLabel7);
         jLabel7.setBounds(150, 110, 110, 40);
 
-        jComboBox1.setModel(new DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
+        jComboBox1.setModel(new DefaultComboBoxModel<>(new String[]{"Elf", "Knight", "Necromancer", "Ork", "Wizard"}));
         jComboBox1.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 2));
         jComboBox1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
+                newHero.setHero_class(String.valueOf(jComboBox1.getSelectedItem()));
             }
         });
         CreateHeroWindow.add(jComboBox1);
@@ -96,6 +111,7 @@ public class CreateHeroWindow extends JFrame {
         jSlider1.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent evt) {
                 jSlider1StateChanged(evt);
+                newHero.setAge(jSlider1.getValue());
             }
         });
 
@@ -112,7 +128,6 @@ public class CreateHeroWindow extends JFrame {
         jLabel10.setBounds(445, 210, 20, 10);
 
 
-
         jButton6.setFont(new Font("Noto Sans", 1, 18)); // NOI18N
         jButton6.setText("OK");
         jButton6.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 2));
@@ -124,20 +139,29 @@ public class CreateHeroWindow extends JFrame {
         CreateHeroWindow.add(jButton6);
         jButton6.setBounds(600, 500, 50, 50);
 
+        buttonGroup.add(jRadioButton1);
         jRadioButton1.setFont(new Font("Noto Sans", 1, 14)); // NOI18N
         jRadioButton1.setForeground(new Color(1, 1, 1));
         jRadioButton1.setText("Male");
         jRadioButton1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 jRadioButton1ActionPerformed(evt);
+                System.out.println(jRadioButton1.isSelected());
             }
         });
         CreateHeroWindow.add(jRadioButton1);
         jRadioButton1.setBounds(350, 290, 59, 30);
 
+        buttonGroup.add(jRadioButton2);
         jRadioButton2.setFont(new Font("Noto Sans", 1, 14)); // NOI18N
         jRadioButton2.setForeground(new Color(1, 1, 1));
         jRadioButton2.setText("Female");
+        jRadioButton2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println(jRadioButton2.isSelected());
+            }
+        });
         CreateHeroWindow.add(jRadioButton2);
         jRadioButton2.setBounds(350, 340, 76, 24);
 
@@ -174,21 +198,38 @@ public class CreateHeroWindow extends JFrame {
     }
 
     private void jComboBox1ActionPerformed(ActionEvent evt) {
-        // TODO add your handling code here:
     }
 
     private void jButton6ActionPerformed(ActionEvent evt) {
-        // TODO add your handling code here:
+
+        String gender = "male";
+        if (jRadioButton2.isSelected())
+            gender = "female";
+
+        try {
+            new FileLoader().addNewHero(new NewHero(jTextField2.getText(), jSlider1.getValue(), gender,
+                    String.valueOf(jComboBox1.getSelectedItem())));
+            BattleWindow battleWindow = new BattleWindow();
+            battleWindow.pack();
+            battleWindow.setLocationRelativeTo(null);
+            battleWindow.setVisible(true);
+            battleWindow.setResizable(false);
+            CreateHeroWindow.setVisible(false);
+            dispose();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private void jRadioButton1ActionPerformed(ActionEvent evt) {
         // TODO add your handling code here:
     }
-    private void jSlider1StateChanged(ChangeEvent evt){
+
+    private void jSlider1StateChanged(ChangeEvent evt) {
         jLabel10.setText(Integer.toString(jSlider1.getValue()));
     }
 
-    public static void main(String args[]) {
+    /*public static void main(String args[]) {
 
         try {
             for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
@@ -211,5 +252,5 @@ public class CreateHeroWindow extends JFrame {
                 new CreateHeroWindow().setVisible(true);
             }
         });
-    }
+    }*/
 }

@@ -26,6 +26,7 @@ public class StartWindow extends JFrame {
         jLabel1 = new JLabel();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         StartWindow.setToolTipText("");
         StartWindow.setName("StartWindow"); // NOI18N
@@ -100,6 +101,7 @@ public class StartWindow extends JFrame {
         selectWindow.pack();
         selectWindow.setLocationRelativeTo(null);
         selectWindow.setVisible(true);
+        selectWindow.setResizable(false);
         StartWindow.setVisible(false);
         dispose();
     }

@@ -2,6 +2,7 @@ package com.okres.swingy.controller;
 
 
 import com.okres.swingy.model.Hero;
+import com.okres.swingy.model.NewHero;
 import com.okres.swingy.util.DbConnection;
 import lombok.Getter;
 import lombok.NonNull;
@@ -40,14 +41,14 @@ public class FileLoader {
             while ((line = bufferedReader.readLine()) != null) {
                 if (line.equals(""))
                     continue;
-                /*new Hero(line.split(",")[1].trim(),
-                        Integer.parseInt(line.split(",")[2].trim()),
+                Hero hero = new Hero(line.split(",")[0].trim(),
+                        Integer.parseInt(line.split(",")[1].trim()),
+                        line.split(",")[2].trim(),
                         line.split(",")[3].trim(),
-                        line.split(",")[4].trim(),
+                        Integer.parseInt(line.split(",")[4].trim()),
                         Integer.parseInt(line.split(",")[5].trim()),
-                        Integer.parseInt(line.split(",")[6].trim()),
-                        line.split(",")[7].trim(),
-                        line.split(",")[8].trim());*/
+                        line.split(",")[6].trim(),
+                        line.split(",")[7].trim());
                 preparedStatement.setString(1,
                         line.split(",")[0].trim());
                 preparedStatement.setInt(2,
@@ -65,6 +66,8 @@ public class FileLoader {
                 preparedStatement.setString(8,
                         line.split(",")[7].trim());
                 preparedStatement.execute();
+                PaneController.model.addElement(hero.getName());
+                PaneController.heroArrayList.add(hero);
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -72,8 +75,26 @@ public class FileLoader {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            connection.close();
         }
-        finally {
+    }
+
+    public void addNewHero(NewHero hero) throws SQLException {
+
+        try {
+            connection = DbConnection.getConnection();
+            preparedStatement = connection.prepareStatement("INSERT INTO heroes" +
+                    " (name, age, gender, hero_class, level, experiance, attack," +
+                    " defence) VALUES (?,?,?,?,0,0,'Fists','Fast running')");
+            preparedStatement.setString(1, hero.getName());
+            preparedStatement.setInt(2, hero.getAge());
+            preparedStatement.setString(3, hero.getGender());
+            preparedStatement.setString(4, hero.getHero_class());
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
             connection.close();
         }
     }

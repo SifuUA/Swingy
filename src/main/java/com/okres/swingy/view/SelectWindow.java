@@ -1,7 +1,7 @@
 package com.okres.swingy.view;
 
 import com.okres.swingy.controller.FileLoader;
-import com.okres.swingy.controller.LoginModel;
+import com.okres.swingy.controller.PaneController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,7 +21,7 @@ public class SelectWindow extends JFrame {
     private JScrollPane jScrollPane1;
     private JScrollPane jScrollPane2;
     private JTextArea jTextArea1;
-    private LoginModel loginModel;
+    private PaneController paneController;
 
 
     public SelectWindow() {
@@ -42,8 +42,7 @@ public class SelectWindow extends JFrame {
         jButton2 = new JButton();
         jButton4 = new JButton();
         jLabel4 = new JLabel();
-        loginModel = new LoginModel();
-        String sql = "select * from heroes";
+        paneController = new PaneController();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         SelectWindow.setPreferredSize(new Dimension(700, 600));
@@ -51,7 +50,7 @@ public class SelectWindow extends JFrame {
 
         jList1.setFont(new Font("Noto Sans", 1, 12)); // NOI18N
         try {
-            loginModel.heroNameList(jList1, sql);
+            paneController.heroNameList(jList1);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -66,7 +65,6 @@ public class SelectWindow extends JFrame {
         });
 
         jScrollPane1.setViewportView(jList1);
-
         SelectWindow.add(jScrollPane1);
         jScrollPane1.setBounds(70, 100, 180, 320);
 
@@ -74,7 +72,6 @@ public class SelectWindow extends JFrame {
         jTextArea1.setFont(new Font("Noto Sans", 1, 14)); // NOI18N
         jTextArea1.setRows(5);
         jScrollPane2.setViewportView(jTextArea1);
-
         SelectWindow.add(jScrollPane2);
         jScrollPane2.setBounds(350, 100, 280, 320);
 
@@ -93,6 +90,18 @@ public class SelectWindow extends JFrame {
         jButton1.setFont(new Font("Noto Sans", 1, 14)); // NOI18N
         jButton1.setText("Select Hero");
         SelectWindow.add(jButton1);
+        jButton1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                BattleWindow battleWindow = new BattleWindow();
+                battleWindow.pack();
+                battleWindow.setLocationRelativeTo(null);
+                battleWindow.setVisible(true);
+                battleWindow.setResizable(false);
+                SelectWindow.setVisible(false);
+                dispose();
+            }
+        });
         jButton1.setBounds(110, 470, 110, 34);
         jButton1.setEnabled(false);
 
@@ -153,12 +162,13 @@ public class SelectWindow extends JFrame {
 
     private void jButton2ActionPerformed(ActionEvent evt) throws SQLException {
         new FileLoader().readFile();
+
     }
 
     private void jList1MouseClicked(MouseEvent evt) throws SQLException {
         if (jList1.getSelectedValue() != null) {
             jButton1.setEnabled(true);
-            loginModel.putOnTextErea(jTextArea1, jList1.getSelectedIndex());
+            paneController.putOnTextErea(jTextArea1, jList1.getSelectedIndex());
             System.out.println(jList1.getSelectedValue());
             System.out.println(jList1.getSelectedIndex());
         }

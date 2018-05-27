@@ -10,13 +10,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class LoginModel {
+public class PaneController {
 
     Connection connection;
-    ArrayList<Hero> heroArrayList = new ArrayList<>();
+    public static ArrayList<Hero> heroArrayList = new ArrayList<>();
+    public static DefaultListModel model = new DefaultListModel();
     Hero hero;
 
-    public LoginModel() {
+    public PaneController() {
         try {
             this.connection = DbConnection.getConnection();
         } catch (SQLException e) {
@@ -31,11 +32,10 @@ public class LoginModel {
         return this.connection != null;
     }
 
-    public void heroNameList(JList jList, String query) throws SQLException {
+    public void heroNameList(JList jList) throws SQLException {
 
-        DefaultListModel model = new DefaultListModel();
         Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery(query);
+        ResultSet resultSet = statement.executeQuery("SELECT * from heroes");
 
         while (resultSet.next()) {
             hero = new Hero(Integer.parseInt(resultSet.getString(1)),
