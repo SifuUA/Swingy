@@ -1,5 +1,7 @@
 package com.okres.swingy.view;
 
+import com.okres.swingy.model.Hero;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -10,6 +12,7 @@ import static java.util.logging.Level.SEVERE;
 
 public class BattleWindow extends JFrame {
 
+    private Hero hero;
     private JPanel BattleWindow;
     private JButton jButton5;
     private JButton jButton7;
@@ -33,6 +36,10 @@ public class BattleWindow extends JFrame {
 
     public BattleWindow() {
         initComponents();
+    }
+
+    public BattleWindow(Hero hero) {
+        this.hero = hero;
     }
 
     @SuppressWarnings("unchecked")

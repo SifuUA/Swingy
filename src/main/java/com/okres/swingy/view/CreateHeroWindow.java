@@ -28,6 +28,7 @@ public class CreateHeroWindow extends JFrame {
     private JRadioButton jRadioButton2;
     private JSlider jSlider1;
     private JTextField jTextField2;
+    NewHero newHero = new NewHero();
 
     public CreateHeroWindow() {
         initComponents();
@@ -50,7 +51,7 @@ public class CreateHeroWindow extends JFrame {
         jRadioButton2 = new JRadioButton();
         jLabel5 = new JLabel();
         buttonGroup = new ButtonGroup();
-        final NewHero newHero = new NewHero();
+
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -207,15 +208,21 @@ public class CreateHeroWindow extends JFrame {
             gender = "female";
 
         try {
-            new FileLoader().addNewHero(new NewHero(jTextField2.getText(), jSlider1.getValue(), gender,
-                    String.valueOf(jComboBox1.getSelectedItem())));
-            BattleWindow battleWindow = new BattleWindow();
-            battleWindow.pack();
-            battleWindow.setLocationRelativeTo(null);
-            battleWindow.setVisible(true);
-            battleWindow.setResizable(false);
-            CreateHeroWindow.setVisible(false);
-            dispose();
+            if (jTextField2.getText().equals(""))
+                JOptionPane.showMessageDialog(null, "You must insert a name for your Hero!");
+            else if (!jRadioButton1.isSelected() && !jRadioButton2.isSelected())
+                JOptionPane.showMessageDialog(null, "You must choose a gender for your Hero!");
+            else {
+                new FileLoader().addNewHero(new NewHero(jTextField2.getText(), jSlider1.getValue(), gender,
+                        String.valueOf(jComboBox1.getSelectedItem())));
+                BattleWindow battleWindow = new BattleWindow(newHero);
+                battleWindow.pack();
+                battleWindow.setLocationRelativeTo(null);
+                battleWindow.setVisible(true);
+                battleWindow.setResizable(false);
+                CreateHeroWindow.setVisible(false);
+                dispose();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
