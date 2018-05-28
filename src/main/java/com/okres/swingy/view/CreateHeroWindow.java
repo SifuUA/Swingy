@@ -80,7 +80,7 @@ public class CreateHeroWindow extends JFrame {
         CreateHeroWindow.add(jLabel7);
         jLabel7.setBounds(150, 110, 110, 40);
 
-        jComboBox1.setModel(new DefaultComboBoxModel<>(new String[]{"Elf", "Knight", "Necromancer", "Ork", "Wizard"}));
+        jComboBox1.setModel(new DefaultComboBoxModel<>(new String[]{"Elf", "Knight", "Ork", "Wizard"}));
         jComboBox1.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 2));
         jComboBox1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
