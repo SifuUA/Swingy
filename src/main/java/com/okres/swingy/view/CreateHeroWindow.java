@@ -215,7 +215,7 @@ public class CreateHeroWindow extends JFrame {
             else {
                 new FileLoader().addNewHero(new NewHero(jTextField2.getText(), jSlider1.getValue(), gender,
                         String.valueOf(jComboBox1.getSelectedItem())));
-                BattleWindow battleWindow = new BattleWindow(newHero);
+                BattleWindow battleWindow = new BattleWindow();
                 battleWindow.pack();
                 battleWindow.setLocationRelativeTo(null);
                 battleWindow.setVisible(true);

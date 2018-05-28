@@ -33,6 +33,7 @@ public class BattleWindow extends JFrame {
     private JScrollPane jScrollPane3;
     private JSeparator jSeparator1;
     private JTextArea jTextArea2;
+    private JPanel jPanel1;
 
     public BattleWindow() {
         initComponents();
@@ -65,6 +66,7 @@ public class BattleWindow extends JFrame {
         jLabel20 = new JLabel();
         jLabel21 = new JLabel();
         jLabel22 = new JLabel();
+        jPanel1 = new JPanel();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -72,13 +74,27 @@ public class BattleWindow extends JFrame {
         BattleWindow.setPreferredSize(new Dimension(700, 600));
         BattleWindow.setLayout(null);
 
-        jTextArea2.setColumns(20);
+        /*GroupLayout jPanel1Layout = new GroupLayout(jPanel1);*/
+        /*jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+                jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGap(0, 300, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+                jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGap(0, 500, Short.MAX_VALUE)
+        );
+*/
+        BattleWindow.add(jPanel1);
+        jPanel1.setBounds(350, 50, 300, 500);
+
+        /*jTextArea2.setColumns(20);
         jTextArea2.setRows(5);
         jTextArea2.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 2));
         jScrollPane3.setViewportView(jTextArea2);
 
         BattleWindow.add(jScrollPane3);
-        jScrollPane3.setBounds(347, 50, 340, 500);
+        jScrollPane3.setBounds(347, 50, 340, 500);*/
 
         jSeparator1.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 2));
         BattleWindow.add(jSeparator1);

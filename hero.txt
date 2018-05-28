@@ -1,3 +1,1 @@
-
-
-Alesha Popovich     , 33, male, Knight, 0,	0, short sword,	leather armor
+Yanulka Krohotulka, 22, female, Knight, 0,	0, short sword,	leather armor
