@@ -12,7 +12,6 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @ToString
 public abstract class Character {
 
@@ -35,6 +34,17 @@ public abstract class Character {
     private String attack;
     @NotNull
     private String defence;
+    @NotNull
+    private int health = 100;
+
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
 
     private int x;
     private int y;
@@ -53,6 +63,18 @@ public abstract class Character {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public Character(int id, String name, int age, String gender, String hero_class, int level, int experience, String attack, String defence) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+        this.hero_class = hero_class;
+        this.level = level;
+        this.experience = experience;
+        this.attack = attack;
+        this.defence = defence;
     }
 
     public Character(String name, int age, String gender, String hero_class, int level, int experience, String attack, String defence) {

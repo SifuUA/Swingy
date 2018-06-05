@@ -12,6 +12,7 @@ public class Hero extends Character{
         super(id, name, age, gender, hero_class, level, experience, attack, defence);
     }
 
+
     public Hero(String name, int age, String gender, String hero_class, int level, int experience, String attack, String defence) {
         super(name, age, gender, hero_class, level, experience, attack, defence);
     }

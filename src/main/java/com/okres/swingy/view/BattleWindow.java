@@ -94,7 +94,7 @@ public class BattleWindow extends JFrame {
         jScrollPane3.setViewportView(jTextArea2);
 
         BattleWindow.add(jScrollPane3);
-        jScrollPane3.setBounds(347, 50, 340, 500);
+        jScrollPane3.setBounds(347, 48, 340, 500);
 
         jSeparator1.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 2));
         BattleWindow.add(jSeparator1);
@@ -114,10 +114,10 @@ public class BattleWindow extends JFrame {
 
         jComboBox2.setFont(new Font("Noto Sans", 1, 14)); // NOI18N
         jComboBox2.setForeground(new Color(1, 1, 1));
-        jComboBox2.setModel(new DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
+        jComboBox2.setModel(new DefaultComboBoxModel<>(new String[]{"North", "South", "West", "East"}));
         jComboBox2.setBorder(BorderFactory.createTitledBorder(""));
         BattleWindow.add(jComboBox2);
-        jComboBox2.setBounds(220, 360, 89, 34);
+        jComboBox2.setBounds(220, 360, 100, 36);
 
         jButton5.setFont(new Font("Noto Sans", 1, 18)); // NOI18N
         jButton5.setForeground(new Color(1, 1, 1));
@@ -165,33 +165,33 @@ public class BattleWindow extends JFrame {
 
         jLabel17.setFont(new Font("Noto Sans", 1, 14)); // NOI18N
         jLabel17.setForeground(new Color(1, 1, 1));
-        jLabel17.setText("jLabel17");
+        jLabel17.setText(hero.getName());
         BattleWindow.add(jLabel17);
-        jLabel17.setBounds(200, 60, 57, 20);
+        jLabel17.setBounds(207, 60, 140, 20);
 
         jLabel18.setFont(new Font("Noto Sans", 1, 14)); // NOI18N
         jLabel18.setForeground(new Color(1, 1, 1));
-        jLabel18.setText("jLabel18");
+        jLabel18.setText(String.valueOf(hero.getHealth()));
         BattleWindow.add(jLabel18);
-        jLabel18.setBounds(200, 110, 57, 20);
+        jLabel18.setBounds(207, 110, 140, 20);
 
         jLabel19.setFont(new Font("Noto Sans", 1, 14)); // NOI18N
         jLabel19.setForeground(new Color(1, 1, 1));
-        jLabel19.setText("jLabel19");
+        jLabel19.setText(String.valueOf(hero.getLevel()));
         BattleWindow.add(jLabel19);
-        jLabel19.setBounds(200, 160, 57, 20);
+        jLabel19.setBounds(207, 160, 140, 20);
 
         jLabel20.setFont(new Font("Noto Sans", 1, 14)); // NOI18N
         jLabel20.setForeground(new Color(1, 1, 1));
-        jLabel20.setText("jLabel20");
+        jLabel20.setText(String.valueOf(hero.getExperience()));
         BattleWindow.add(jLabel20);
-        jLabel20.setBounds(200, 210, 57, 20);
+        jLabel20.setBounds(207, 210, 140, 20);
 
         jLabel21.setFont(new Font("Noto Sans", 1, 14)); // NOI18N
         jLabel21.setForeground(new Color(1, 1, 1));
-        jLabel21.setText("jLabel21");
+        jLabel21.setText(String.valueOf(hero.getX()) + ", " + hero.getY());
         BattleWindow.add(jLabel21);
-        jLabel21.setBounds(200, 260, 79, 20);
+        jLabel21.setBounds(207, 260, 140, 20);
 
         jLabel22.setIcon(new ImageIcon(getClass().getResource("/img/background4.png"))); // NOI18N
         jLabel22.setText("jLabel22");
