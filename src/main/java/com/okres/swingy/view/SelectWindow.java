@@ -93,7 +93,10 @@ public class SelectWindow extends JFrame {
         jButton1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                BattleWindow battleWindow = new BattleWindow();
+                System.out.println("NUMBER " + jList1.getSelectedIndex());
+                BattleWindow battleWindow =
+                        new BattleWindow(PaneController.heroArrayList.
+                                get(jList1.getSelectedIndex()));
                 battleWindow.pack();
                 battleWindow.setLocationRelativeTo(null);
                 battleWindow.setVisible(true);

@@ -1,4 +1,4 @@
 package com.okres.swingy.model;
 
-public interface Character1 {
+public class Map {
 }

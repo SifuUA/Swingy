@@ -1,7 +1,6 @@
 package com.okres.swingy;
 
 import com.okres.swingy.view.StartWindow;
-import com.okres.swingy.view.temp.NewApplication;
 
 import javax.swing.*;
 
