@@ -1,5 +1,6 @@
 package com.okres.swingy.view;
 
+import com.okres.swingy.controller.GameController;
 import com.okres.swingy.model.Hero;
 
 import javax.swing.*;
@@ -34,6 +35,7 @@ public class BattleWindow extends JFrame {
     private JSeparator jSeparator1;
     private JTextArea jTextArea2;
     private JPanel jPanel1 = new JPanel();
+    private GameController gameController;
     //private JPanel jPanel1;
 
     public BattleWindow() {
@@ -131,6 +133,13 @@ public class BattleWindow extends JFrame {
         jButton7.setFont(new Font("Noto Sans", 1, 18)); // NOI18N
         jButton7.setForeground(new Color(1, 1, 1));
         jButton7.setText("Run");
+        jButton7.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gameController = new GameController(hero);
+                System.out.println(hero.getHealth());
+            }
+        });
         jButton7.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 2));
         BattleWindow.add(jButton7);
         jButton7.setBounds(210, 460, 77, 30);
