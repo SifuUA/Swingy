@@ -17,6 +17,12 @@ public class Hero extends Character{
         super(name, age, gender, hero_class, level, experience, attack, defence);
     }
 
+    public Hero() {
+    }
+
+    public Hero(String name, int age, String gender, String hero_class) {
+        super(name, age, gender, hero_class);
+    }
     @Override
     public void moveNorth() {
 
@@ -46,4 +52,7 @@ public class Hero extends Character{
     public void run() {
 
     }
+
+
+
 }

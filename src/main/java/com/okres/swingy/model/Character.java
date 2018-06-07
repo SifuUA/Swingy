@@ -103,4 +103,8 @@ public abstract class Character {
      public abstract void moveEast();
      public abstract void fight();
      public abstract void run();
+
+
 }
+
+

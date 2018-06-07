@@ -42,6 +42,7 @@ public class BattleWindow extends JFrame {
 
     public BattleWindow(Hero hero) {
         this.hero = hero;
+        System.out.println(hero.toString());
         initComponents();
     }
 

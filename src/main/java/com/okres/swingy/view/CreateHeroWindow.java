@@ -1,8 +1,7 @@
 package com.okres.swingy.view;
 
 import com.okres.swingy.controller.FileLoader;
-import com.okres.swingy.controller.PaneController;
-import com.okres.swingy.model.NewHero;
+import com.okres.swingy.model.Hero;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -28,7 +27,7 @@ public class CreateHeroWindow extends JFrame {
     private JRadioButton jRadioButton2;
     private JSlider jSlider1;
     private JTextField jTextField2;
-    NewHero newHero = new NewHero();
+    Hero hero;
 
     public CreateHeroWindow() {
         initComponents();
@@ -63,7 +62,6 @@ public class CreateHeroWindow extends JFrame {
         jTextField2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                newHero.setName(jTextField2.getText());
             }
         });
         jTextField2.setBounds(350, 100, 200, 50);
@@ -85,7 +83,6 @@ public class CreateHeroWindow extends JFrame {
         jComboBox1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
-                newHero.setHero_class(String.valueOf(jComboBox1.getSelectedItem()));
             }
         });
         CreateHeroWindow.add(jComboBox1);
@@ -112,7 +109,6 @@ public class CreateHeroWindow extends JFrame {
         jSlider1.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent evt) {
                 jSlider1StateChanged(evt);
-                newHero.setAge(jSlider1.getValue());
             }
         });
 
@@ -213,9 +209,10 @@ public class CreateHeroWindow extends JFrame {
             else if (!jRadioButton1.isSelected() && !jRadioButton2.isSelected())
                 JOptionPane.showMessageDialog(null, "You must choose a gender for your Hero!");
             else {
-                new FileLoader().addNewHero(new NewHero(jTextField2.getText(), jSlider1.getValue(), gender,
-                        String.valueOf(jComboBox1.getSelectedItem())));
-                BattleWindow battleWindow = new BattleWindow();
+                hero = new Hero(jTextField2.getText(), jSlider1.getValue(), gender,
+                        String.valueOf(jComboBox1.getSelectedItem()));
+                new FileLoader().addNewHero(hero);
+                BattleWindow battleWindow = new BattleWindow(hero);
                 battleWindow.pack();
                 battleWindow.setLocationRelativeTo(null);
                 battleWindow.setVisible(true);
@@ -235,29 +232,4 @@ public class CreateHeroWindow extends JFrame {
     private void jSlider1StateChanged(ChangeEvent evt) {
         jLabel10.setText(Integer.toString(jSlider1.getValue()));
     }
-
-    /*public static void main(String args[]) {
-
-        try {
-            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CreateHeroWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CreateHeroWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CreateHeroWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CreateHeroWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CreateHeroWindow().setVisible(true);
-            }
-        });
-    }*/
 }

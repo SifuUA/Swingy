@@ -2,7 +2,6 @@ package com.okres.swingy.controller;
 
 
 import com.okres.swingy.model.Hero;
-import com.okres.swingy.model.NewHero;
 import com.okres.swingy.util.DbConnection;
 import lombok.Getter;
 import lombok.NonNull;
@@ -80,7 +79,7 @@ public class FileLoader {
         }
     }
 
-    public void addNewHero(NewHero hero) throws SQLException {
+    public void addNewHero(Hero hero) throws SQLException {
 
         try {
             connection = DbConnection.getConnection();
