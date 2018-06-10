@@ -4,17 +4,13 @@ import com.okres.swingy.controller.GameController;
 import com.okres.swingy.model.Hero;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.logging.Logger;
-
-import static java.util.logging.Level.SEVERE;
 
 public class BattleWindow extends JFrame {
 
     private Hero hero;
-    private JPanel BattleWindow;
+    private JPanel battleWindow;
     private JButton jButton5;
     private JButton jButton7;
     private JComboBox<String> jComboBox2;
@@ -34,6 +30,7 @@ public class BattleWindow extends JFrame {
     private JScrollPane jScrollPane3;
     private JSeparator jSeparator1;
     private JTextArea jTextArea2;
+    JLabel jLabel1;
     private JPanel jPanel1 = new JPanel();
     private GameController gameController;
     //private JPanel jPanel1;
@@ -51,7 +48,7 @@ public class BattleWindow extends JFrame {
     @SuppressWarnings("unchecked")
     private void initComponents() {
 
-        BattleWindow = new JPanel();
+        battleWindow = new JPanel();
         jScrollPane3 = new JScrollPane();
         jTextArea2 = new JTextArea();
         jSeparator1 = new JSeparator();
@@ -71,15 +68,20 @@ public class BattleWindow extends JFrame {
         jLabel20 = new JLabel();
         jLabel21 = new JLabel();
         jLabel22 = new JLabel();
+        jLabel1 = new JLabel();
+        gameController = new GameController();
         //jPanel1 = new JPanel();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        BattleWindow.setFont(new Font("Noto Sans", 0, 14)); // NOI18N
-        BattleWindow.setPreferredSize(new Dimension(700, 600));
-        BattleWindow.setLayout(null);
-
-        GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
+        battleWindow.setFont(new Font("Noto Sans", 0, 14)); // NOI18N
+        battleWindow.setPreferredSize(new Dimension(700, 600));
+        battleWindow.setLayout(null);
+        /*
+        * Create map, vialians, and adjustment they on map
+        */
+        gameController.createMap(hero.getLevel());
+                GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
                 jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -89,45 +91,62 @@ public class BattleWindow extends JFrame {
                 jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGap(0, 500, Short.MAX_VALUE)
         );
-        BattleWindow.add(jPanel1);
+        battleWindow.add(jPanel1);
         jPanel1.setBounds(350, 50, 300, 500);
 
+        jLabel1.setText("<html><p>Welcome to the Game!!! <br/>" +
+                "You are in the center of the wood and your goal is to find " +
+                "road from it. <br/> Choose direction ang game will begin." +
+                "<br/>Good luck!</p></html>");
+        jLabel1.setVerticalAlignment(SwingConstants.CENTER);
+        jLabel1.setFont(new Font("Noto Sans", 1, 14)); // NOI18N
+        jLabel1.setForeground(new Color(1, 1, 1));
+        jLabel1.setBounds(40, 40, 220, 420);
+        jPanel1.add(jLabel1);
         /*jTextArea2.setColumns(20);
         jTextArea2.setRows(5);
         jTextArea2.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 2));
         jScrollPane3.setViewportView(jTextArea2);
 
-        BattleWindow.add(jScrollPane3);
+        battleWindow.add(jScrollPane3);
         jScrollPane3.setBounds(347, 48, 340, 500);*/
 
         jSeparator1.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 2));
-        BattleWindow.add(jSeparator1);
+        battleWindow.add(jSeparator1);
         jSeparator1.setBounds(55, 303, 290, 5);
 
         jLabel10.setFont(new Font("Noto Sans", 1, 22)); // NOI18N
         jLabel10.setForeground(new Color(1, 1, 1));
         jLabel10.setText("Actions");
-        BattleWindow.add(jLabel10);
+        battleWindow.add(jLabel10);
         jLabel10.setBounds(150, 310, 99, 29);
 
         jLabel11.setFont(new Font("Noto Sans", 1, 18)); // NOI18N
         jLabel11.setForeground(new Color(1, 1, 1));
         jLabel11.setText("Move");
-        BattleWindow.add(jLabel11);
+        battleWindow.add(jLabel11);
         jLabel11.setBounds(60, 360, 67, 30);
 
         jComboBox2.setFont(new Font("Noto Sans", 1, 14)); // NOI18N
         jComboBox2.setForeground(new Color(1, 1, 1));
         jComboBox2.setModel(new DefaultComboBoxModel<>(new String[]{"North", "South", "West", "East"}));
         jComboBox2.setBorder(BorderFactory.createTitledBorder(""));
-        BattleWindow.add(jComboBox2);
+        jComboBox2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gameController.checkStep(jComboBox2.getSelectedIndex(), hero);
+                System.out.println(jComboBox2.getSelectedItem());
+                System.out.println(jComboBox2.getSelectedIndex());
+            }
+        });
+        battleWindow.add(jComboBox2);
         jComboBox2.setBounds(220, 360, 100, 36);
 
         jButton5.setFont(new Font("Noto Sans", 1, 18)); // NOI18N
         jButton5.setForeground(new Color(1, 1, 1));
         jButton5.setText("Fight");
         jButton5.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 2));
-        BattleWindow.add(jButton5);
+        battleWindow.add(jButton5);
         jButton5.setBounds(70, 460, 77, 30);
 
         jButton7.setFont(new Font("Noto Sans", 1, 18)); // NOI18N
@@ -136,77 +155,76 @@ public class BattleWindow extends JFrame {
         jButton7.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                gameController = new GameController(hero);
-                System.out.println(hero.getHealth());
+                //gameController = new GameController(hero, jLabel17, jLabel18, jLabel19, jLabel20, jLabel21);
             }
         });
         jButton7.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 2));
-        BattleWindow.add(jButton7);
+        battleWindow.add(jButton7);
         jButton7.setBounds(210, 460, 77, 30);
 
         jLabel12.setFont(new Font("Noto Sans", 1, 18)); // NOI18N
         jLabel12.setForeground(new Color(1, 1, 1));
         jLabel12.setText("Name");
-        BattleWindow.add(jLabel12);
+        battleWindow.add(jLabel12);
         jLabel12.setBounds(60, 60, 55, 26);
 
         jLabel13.setFont(new Font("Noto Sans", 1, 18)); // NOI18N
         jLabel13.setForeground(new Color(1, 1, 1));
         jLabel13.setText("Health");
-        BattleWindow.add(jLabel13);
+        battleWindow.add(jLabel13);
         jLabel13.setBounds(60, 110, 62, 26);
 
         jLabel14.setFont(new Font("Noto Sans", 1, 18)); // NOI18N
         jLabel14.setForeground(new Color(1, 1, 1));
         jLabel14.setText("Level");
-        BattleWindow.add(jLabel14);
+        battleWindow.add(jLabel14);
         jLabel14.setBounds(60, 160, 48, 26);
 
         jLabel15.setFont(new Font("Noto Sans", 1, 18)); // NOI18N
         jLabel15.setForeground(new Color(1, 1, 1));
         jLabel15.setText("Experiance");
-        BattleWindow.add(jLabel15);
+        battleWindow.add(jLabel15);
         jLabel15.setBounds(60, 210, 99, 26);
 
         jLabel16.setFont(new Font("Noto Sans", 1, 18)); // NOI18N
         jLabel16.setForeground(new Color(1, 1, 1));
         jLabel16.setText("Coordinates");
-        BattleWindow.add(jLabel16);
+        battleWindow.add(jLabel16);
         jLabel16.setBounds(60, 260, 109, 26);
 
         jLabel17.setFont(new Font("Noto Sans", 1, 14)); // NOI18N
         jLabel17.setForeground(new Color(1, 1, 1));
         jLabel17.setText(hero.getName());
-        BattleWindow.add(jLabel17);
+        battleWindow.add(jLabel17);
         jLabel17.setBounds(207, 60, 140, 20);
 
         jLabel18.setFont(new Font("Noto Sans", 1, 14)); // NOI18N
         jLabel18.setForeground(new Color(1, 1, 1));
         jLabel18.setText(String.valueOf(hero.getHealth()));
-        BattleWindow.add(jLabel18);
+        battleWindow.add(jLabel18);
         jLabel18.setBounds(207, 110, 140, 20);
 
         jLabel19.setFont(new Font("Noto Sans", 1, 14)); // NOI18N
         jLabel19.setForeground(new Color(1, 1, 1));
         jLabel19.setText(String.valueOf(hero.getLevel()));
-        BattleWindow.add(jLabel19);
+        battleWindow.add(jLabel19);
         jLabel19.setBounds(207, 160, 140, 20);
 
         jLabel20.setFont(new Font("Noto Sans", 1, 14)); // NOI18N
         jLabel20.setForeground(new Color(1, 1, 1));
         jLabel20.setText(String.valueOf(hero.getExperience()));
-        BattleWindow.add(jLabel20);
+        battleWindow.add(jLabel20);
         jLabel20.setBounds(207, 210, 140, 20);
 
         jLabel21.setFont(new Font("Noto Sans", 1, 14)); // NOI18N
         jLabel21.setForeground(new Color(1, 1, 1));
         jLabel21.setText(String.valueOf(hero.getX()) + ", " + hero.getY());
-        BattleWindow.add(jLabel21);
+        battleWindow.add(jLabel21);
         jLabel21.setBounds(207, 260, 140, 20);
 
         jLabel22.setIcon(new ImageIcon(getClass().getResource("/img/background4.png"))); // NOI18N
         jLabel22.setText("jLabel22");
-        BattleWindow.add(jLabel22);
+        battleWindow.add(jLabel22);
         jLabel22.setBounds(0, 0, 700, 600);
 
         GroupLayout layout = new GroupLayout(getContentPane());
@@ -217,7 +235,7 @@ public class BattleWindow extends JFrame {
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createSequentialGroup()
                                         .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(BattleWindow, GroupLayout.PREFERRED_SIZE, 700, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(battleWindow, GroupLayout.PREFERRED_SIZE, 700, GroupLayout.PREFERRED_SIZE)
                                         .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
@@ -226,34 +244,11 @@ public class BattleWindow extends JFrame {
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createSequentialGroup()
                                         .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(BattleWindow, GroupLayout.PREFERRED_SIZE, 600, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(battleWindow, GroupLayout.PREFERRED_SIZE, 600, GroupLayout.PREFERRED_SIZE)
                                         .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         pack();
+
     }
-/*
-    public static void main(String args[]) {
-        try {
-            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(BattleWindow.class.getName()).log(SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(BattleWindow.class.getName()).log(SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(BattleWindow.class.getName()).log(SEVERE, null, ex);
-        } catch (UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(BattleWindow.class.getName()).log(SEVERE, null, ex);
-        }
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new BattleWindow().setVisible(true);
-            }
-        });
-    }*/
 }
