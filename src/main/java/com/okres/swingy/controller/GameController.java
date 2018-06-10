@@ -29,7 +29,18 @@ public class GameController {
             {
                 hero.setY(hero.getY() + 1);
             }
-            else if (hero.)
+            else if (selectedIndex == 1) {
+                hero.setY(hero.getY() - 1);
+            }
+            else if (selectedIndex == 2) {
+                hero.setX(hero.getX() + 1);
+            }
+            else
+                hero.setX(hero.getX() - 1);
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "You are win!!!");
+            System.out.println("Yoг are win!");
         }
     }
 
