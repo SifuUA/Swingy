@@ -33,6 +33,7 @@ public class BattleWindow extends JFrame {
     JLabel jLabel1;
     private JPanel jPanel1 = new JPanel();
     private GameController gameController;
+    private int map[][];
     //private JPanel jPanel1;
 
     public BattleWindow() {
@@ -78,10 +79,15 @@ public class BattleWindow extends JFrame {
         battleWindow.setPreferredSize(new Dimension(700, 600));
         battleWindow.setLayout(null);
         /*
-        * Create map, vialians, and adjustment they on map
-        */
-        gameController.createMap(hero.getLevel());
-                GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
+         * Create map, vialians, and adjustment they on map
+         */
+        map = new int[((hero.getLevel() - 1) * 5 + 10 - (hero.getLevel() % 2))]
+                [((hero.getLevel() - 1) * 5 + 10 - (hero.getLevel() % 2))];
+        System.out.println("Map = " + map.length);
+        hero.setX(map.length / 2);
+        hero.setY(map.length / 2);
+        System.out.println("X = " + hero.getX() + " " + "Y = " + hero.getY());
+        GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
                 jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -134,9 +140,7 @@ public class BattleWindow extends JFrame {
         jComboBox2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                gameController.checkStep(jComboBox2.getSelectedIndex(), hero);
-                System.out.println(jComboBox2.getSelectedItem());
-                System.out.println(jComboBox2.getSelectedIndex());
+                gameController.checkStep(jComboBox2.getSelectedIndex(), hero, map.length);
             }
         });
         battleWindow.add(jComboBox2);

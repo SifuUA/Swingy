@@ -17,36 +17,35 @@ public class GameController {
         name.setText("RRRRRRRRRRRRRRRRRRRRRR");
     }*/
 
-    public void createMap(int size){
-        arr = new int [size][size];
+    public int[][] createMap(int size) {
+        arr = new int[size][size];
+        return arr;
     }
 
 
-    public void checkStep(int selectedIndex, Hero hero) {
-        if (isPossibleStep(hero))
-        {
-            if (selectedIndex == 0)
-            {
+    public void checkStep(int selectedIndex, Hero hero, int len) {
+
+        if (isPossibleStep(hero, len)) {
+
+            if (selectedIndex == 0) {
                 hero.setY(hero.getY() + 1);
-            }
-            else if (selectedIndex == 1) {
+            } else if (selectedIndex == 1) {
                 hero.setY(hero.getY() - 1);
-            }
-            else if (selectedIndex == 2) {
+            } else if (selectedIndex == 2) {
                 hero.setX(hero.getX() + 1);
-            }
-            else
+            } else
                 hero.setX(hero.getX() - 1);
-        }
-        else {
+            System.out.println("X Y = " + hero.getX() + " " + hero.getY());
+        } else {
             JOptionPane.showMessageDialog(null, "You are win!!!");
             System.out.println("Yoг are win!");
         }
     }
 
-    private boolean isPossibleStep(Hero hero) {
-        if (hero.getX() > 0 && hero.getY() > 0 && hero.getX() < arr.length &&
-                hero.getY() < arr.length)
+    private boolean isPossibleStep(Hero hero, int len) {
+        System.out.println("AAAAAAA");
+        if (hero.getX() > 0 && hero.getY() > 0 && hero.getX() < len &&
+                hero.getY() < len)
             return true;
         return false;
     }
