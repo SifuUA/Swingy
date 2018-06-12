@@ -141,10 +141,11 @@ public class BattleWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 gameController.checkStep(jComboBox2.getSelectedIndex(), hero, map.length);
+                gameController.getRandomStepTruble();
             }
         });
         battleWindow.add(jComboBox2);
-        jComboBox2.setBounds(220, 360, 100, 36);
+        jComboBox2.setBounds(220, 360, 100, 38);
 
         jButton5.setFont(new Font("Noto Sans", 1, 18)); // NOI18N
         jButton5.setForeground(new Color(1, 1, 1));

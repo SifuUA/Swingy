@@ -1,27 +1,20 @@
 package com.okres.swingy.controller;
 
 import com.okres.swingy.model.Character;
-import com.okres.swingy.model.Game;
 import com.okres.swingy.model.Hero;
+import com.okres.swingy.model.items.ArtifactsType;
+import com.okres.swingy.model.items.RandomItems;
 
 import javax.swing.*;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 public class GameController {
     private List<Character> characters;
     private int arr[][];
-
-    /*public GameController(Hero hero) {
-    }
-    public GameController(Hero hero, JLabel name, JLabel health, JLabel level, JLabel experience, JLabel coordinates) {
-        name.setText("RRRRRRRRRRRRRRRRRRRRRR");
-    }*/
-
-    public int[][] createMap(int size) {
-        arr = new int[size][size];
-        return arr;
-    }
-
+    private Map arrObj= new HashMap();
 
     public void checkStep(int selectedIndex, Hero hero, int len) {
 
@@ -43,10 +36,37 @@ public class GameController {
     }
 
     private boolean isPossibleStep(Hero hero, int len) {
-        System.out.println("AAAAAAA");
         if (hero.getX() > 0 && hero.getY() > 0 && hero.getX() < len &&
                 hero.getY() < len)
             return true;
         return false;
     }
+
+    public void initializeMap() {
+        this.arrObj.put(1, RandomItems.ARTIFACT);
+        this.arrObj.put(2, RandomItems.VILLIAN);
+        this.arrObj.put(3, RandomItems.STEP);
+        this.arrObj.put(4, RandomItems.VILLIAN);
+        this.arrObj.put(5, RandomItems.STEP);
+        this.arrObj.put(6, RandomItems.STEP);
+        this.arrObj.put(7, RandomItems.VILLIAN);
+        this.arrObj.put(8, RandomItems.STEP);
+        this.arrObj.put(9, RandomItems.VILLIAN);
+        this.arrObj.put(10, RandomItems.STEP);
+        this.arrObj.put(11, RandomItems.BOSS);
+        this.arrObj.put(12, RandomItems.STEP);
+        this.arrObj.put(13, RandomItems.STEP);
+        this.arrObj.put(14, RandomItems.VILLIAN);
+        this.arrObj.put(15, RandomItems.STEP);
+        this.arrObj.put(16, RandomItems.VILLIAN);
+    }
+
+    public void getRandomStepTruble() {
+        initializeMap();
+        Random random = new Random();
+        int i = random.nextInt(16) + 1;
+        System.out.println("random number = " + i);
+        System.out.println(arrObj.get(i));
+    }
+
 }
