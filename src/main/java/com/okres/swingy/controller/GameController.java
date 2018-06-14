@@ -61,12 +61,18 @@ public class GameController {
         this.arrObj.put(16, RandomItems.VILLIAN);
     }
 
-    public void getRandomStepTruble() {
+    public int  getRandomStepTruble() {
         initializeMap();
         Random random = new Random();
         int i = random.nextInt(16) + 1;
         System.out.println("random number = " + i);
         System.out.println(arrObj.get(i));
+        return i;
     }
 
+    public void fightImitattion(int i, Hero hero) {
+        Object obj = arrObj.get(i);
+        if (obj.equals(RandomItems.STEP)) {
+        }
+    }
 }

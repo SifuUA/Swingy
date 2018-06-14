@@ -86,7 +86,7 @@ public class BattleWindow extends JFrame {
         System.out.println("Map = " + map.length);
         hero.setX(map.length / 2);
         hero.setY(map.length / 2);
-        System.out.println("X = " + hero.getX() + " " + "Y = " + hero.getY());
+        System.out.println("First center position X = " + hero.getX() + " " + "Y = " + hero.getY());
         GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -109,13 +109,6 @@ public class BattleWindow extends JFrame {
         jLabel1.setForeground(new Color(1, 1, 1));
         jLabel1.setBounds(40, 40, 220, 420);
         jPanel1.add(jLabel1);
-        /*jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jTextArea2.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 2));
-        jScrollPane3.setViewportView(jTextArea2);
-
-        battleWindow.add(jScrollPane3);
-        jScrollPane3.setBounds(347, 48, 340, 500);*/
 
         jSeparator1.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 2));
         battleWindow.add(jSeparator1);
@@ -141,7 +134,11 @@ public class BattleWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 gameController.checkStep(jComboBox2.getSelectedIndex(), hero, map.length);
-                gameController.getRandomStepTruble();
+                int i = gameController.getRandomStepTruble();
+                jComboBox2.setEnabled(false);
+                jButton5.setEnabled(true);
+                jButton7.setEnabled(true);
+               //gameController.fightImitattion(i, hero);
             }
         });
         battleWindow.add(jComboBox2);
@@ -150,17 +147,29 @@ public class BattleWindow extends JFrame {
         jButton5.setFont(new Font("Noto Sans", 1, 18)); // NOI18N
         jButton5.setForeground(new Color(1, 1, 1));
         jButton5.setText("Fight");
+        jButton5.setEnabled(false);
         jButton5.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 2));
+        jButton5.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Fight");
+                jComboBox2.setEnabled(true);
+                jButton5.setEnabled(false);
+            }
+        });
         battleWindow.add(jButton5);
         jButton5.setBounds(70, 460, 77, 30);
 
         jButton7.setFont(new Font("Noto Sans", 1, 18)); // NOI18N
         jButton7.setForeground(new Color(1, 1, 1));
         jButton7.setText("Run");
+        jButton7.setEnabled(false);
         jButton7.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //gameController = new GameController(hero, jLabel17, jLabel18, jLabel19, jLabel20, jLabel21);
+                System.out.println("Run!");
+                jComboBox2.setEnabled(true);
+                jButton7.setEnabled(false);
             }
         });
         jButton7.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 2));
