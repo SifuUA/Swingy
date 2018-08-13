@@ -2,7 +2,6 @@ package com.okres.swingy.controller;
 
 import com.okres.swingy.model.Character;
 import com.okres.swingy.model.Hero;
-import com.okres.swingy.model.items.ArtifactsType;
 import com.okres.swingy.model.items.RandomItems;
 
 import javax.swing.*;
@@ -13,7 +12,6 @@ import java.util.Random;
 
 public class GameController {
     private List<Character> characters;
-    private int arr[][];
     private Map arrObj= new HashMap();
 
     public void checkStep(int selectedIndex, Hero hero, int len) {
@@ -70,9 +68,20 @@ public class GameController {
         return i;
     }
 
-    public void fightImitattion(int i, Hero hero) {
+    public void fightImitattion(int i, Hero hero, JLabel jLabel1) {
         Object obj = arrObj.get(i);
         if (obj.equals(RandomItems.STEP)) {
         }
+    }
+
+    public void runButton(Hero hero, int selectedIndex) {
+        if (selectedIndex == 0) {
+            hero.setY(hero.getY() - 1);
+        } else if (selectedIndex == 1) {
+            hero.setY(hero.getY() + 1);
+        } else if (selectedIndex == 2) {
+            hero.setX(hero.getX() - 1);
+        } else
+            hero.setX(hero.getX() + 1);
     }
 }

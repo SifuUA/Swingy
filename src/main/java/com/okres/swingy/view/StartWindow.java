@@ -114,7 +114,5 @@ public class StartWindow extends JFrame {
         StartWindow.setVisible(false);
         System.exit(0);
     }
-
-
 }
 

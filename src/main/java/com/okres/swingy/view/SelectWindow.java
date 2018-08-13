@@ -57,7 +57,7 @@ public class SelectWindow extends JFrame {
         jList1.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
                 try {
-                     jList1MouseClicked(evt);
+                    jList1MouseClicked(evt);
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -165,7 +165,6 @@ public class SelectWindow extends JFrame {
 
     private void jButton2ActionPerformed(ActionEvent evt) throws SQLException {
         new FileLoader().readFile();
-
     }
 
     private void jList1MouseClicked(MouseEvent evt) throws SQLException {
@@ -185,29 +184,5 @@ public class SelectWindow extends JFrame {
         SelectWindow.setVisible(false);
         dispose();
     }
-
-//    public static void main(String args[]) {
-//        try {
-//            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(SelectWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(SelectWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(SelectWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(SelectWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new SelectWindow().setVisible(true);
-//            }
-//        });
-//    }
 }
 

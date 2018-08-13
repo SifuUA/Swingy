@@ -34,7 +34,6 @@ public class BattleWindow extends JFrame {
     private JPanel jPanel1 = new JPanel();
     private GameController gameController;
     private int map[][];
-    //private JPanel jPanel1;
 
     public BattleWindow() {
         initComponents();
@@ -101,8 +100,8 @@ public class BattleWindow extends JFrame {
         jPanel1.setBounds(350, 50, 300, 500);
 
         jLabel1.setText("<html><p>Welcome to the Game!!! <br/>" +
-                "You are in the center of the wood and your goal is to find " +
-                "road from it. <br/> Choose direction ang game will begin." +
+                "You are in the center of the dark wood and your goal is to find" +
+                " road from it. <br/> Choose direction ang game will begin." +
                 "<br/>Good luck!</p></html>");
         jLabel1.setVerticalAlignment(SwingConstants.CENTER);
         jLabel1.setFont(new Font("Noto Sans", 1, 14)); // NOI18N
@@ -133,12 +132,14 @@ public class BattleWindow extends JFrame {
         jComboBox2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                System.out.println("In jComboBox2 X = " + hero.getX() + " Y = " + hero.getY());
                 gameController.checkStep(jComboBox2.getSelectedIndex(), hero, map.length);
+                jLabel21.setText(String.valueOf(hero.getX()) + ", " + hero.getY());
                 int i = gameController.getRandomStepTruble();
                 jComboBox2.setEnabled(false);
                 jButton5.setEnabled(true);
                 jButton7.setEnabled(true);
-               //gameController.fightImitattion(i, hero);
+               gameController.fightImitattion(i, hero, jLabel1);
             }
         });
         battleWindow.add(jComboBox2);
@@ -167,7 +168,9 @@ public class BattleWindow extends JFrame {
         jButton7.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                gameController.runButton(hero, jComboBox2.getSelectedIndex());
                 System.out.println("Run!");
+                jLabel21.setText(String.valueOf(hero.getX()) + ", " + hero.getY());
                 jComboBox2.setEnabled(true);
                 jButton7.setEnabled(false);
             }
