@@ -68,10 +68,19 @@ public class GameController {
         return i;
     }
 
-    public void fightImitattion(int i, Hero hero, JLabel jLabel1) {
+    public void fightImitattion(int i, Hero hero, JLabel jWindow, JButton jFight, JButton jRun, JComboBox jComboBox2) {
         Object obj = arrObj.get(i);
         if (obj.equals(RandomItems.STEP)) {
-        }
+            jWindow.setText("STEP");
+            jFight.setEnabled(false);
+            jRun.setEnabled(false);
+            jComboBox2.setEnabled(true);
+        }else if (obj.equals(RandomItems.VILLIAN))
+            jWindow.setText("VILLIAN");
+        else if (obj.equals(RandomItems.BOSS))
+            jWindow.setText("BOSS");
+        else
+            jWindow.setText("ARTIFACT");
     }
 
     public void runButton(Hero hero, int selectedIndex) {

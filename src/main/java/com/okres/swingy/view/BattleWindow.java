@@ -139,7 +139,7 @@ public class BattleWindow extends JFrame {
                 jComboBox2.setEnabled(false);
                 jButton5.setEnabled(true);
                 jButton7.setEnabled(true);
-               gameController.fightImitattion(i, hero, jLabel1);
+               gameController.fightImitattion(i, hero, jLabel1, jButton5, jButton7, jComboBox2 );
             }
         });
         battleWindow.add(jComboBox2);
