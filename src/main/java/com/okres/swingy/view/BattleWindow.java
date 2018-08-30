@@ -118,6 +118,9 @@ public class BattleWindow extends JFrame {
         battleWindow.add(jLabel11);
         jLabel11.setBounds(60, 360, 67, 30);
 
+        /**
+         * Direction button
+         */
         jComboBox2.setFont(new Font("Noto Sans", 1, 14)); // NOI18N
         jComboBox2.setForeground(new Color(1, 1, 1));
         jComboBox2.setModel(new DefaultComboBoxModel<>(new String[]{"North", "South", "West", "East"}));
@@ -128,18 +131,18 @@ public class BattleWindow extends JFrame {
                 System.out.println("In jComboBox2 X = " + hero.getX() + " Y = " + hero.getY());
                 gameController.checkStep(jComboBox2.getSelectedIndex(), hero, gameController.getMap().length);
                 jLabel21.setText(String.valueOf(hero.getX()) + ", " + hero.getY());
-                int i = gameController.getRandomStepTruble();
+                //int i = gameController.getRandomStepTruble();
                 jComboBox2.setEnabled(false);
                 jButton5.setEnabled(true);
                 jButton7.setEnabled(true);
-               gameController.fightImitattion(i, hero, jLabel1, jButton5, jButton7, jComboBox2 );
+                gameController.fightImitattion(hero, jLabel1, jButton5, jButton7, jComboBox2 );
             }
         });
         battleWindow.add(jComboBox2);
         jComboBox2.setBounds(220, 360, 100, 38);
 
         /**
-         * Run button
+         * Fight button
          */
         jButton5.setFont(new Font("Noto Sans", 1, 18)); // NOI18N
         jButton5.setForeground(new Color(1, 1, 1));
@@ -152,13 +155,14 @@ public class BattleWindow extends JFrame {
                 System.out.println("Fight");
                 jComboBox2.setEnabled(true);
                 jButton5.setEnabled(false);
+                jButton7.setEnabled(false);
             }
         });
         battleWindow.add(jButton5);
         jButton5.setBounds(70, 460, 77, 30);
 
         /**
-         * Fight button
+         * Run button
          */
         jButton7.setFont(new Font("Noto Sans", 1, 18)); // NOI18N
         jButton7.setForeground(new Color(1, 1, 1));
@@ -172,6 +176,7 @@ public class BattleWindow extends JFrame {
                 jLabel21.setText(String.valueOf(hero.getX()) + ", " + hero.getY());
                 jComboBox2.setEnabled(true);
                 jButton7.setEnabled(false);
+                jButton5.setEnabled(false);
             }
         });
         jButton7.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 2));

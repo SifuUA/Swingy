@@ -66,15 +66,17 @@ public class GameController {
         return i;
     }
 
-    public void fightImitattion(int i, Hero hero, JLabel jWindow, JButton jFight, JButton jRun, JComboBox jComboBox2) {
-        Object obj = arrObj.get(i);
+    public void fightImitattion(Hero hero, JLabel jWindow, JButton jFight, JButton jRun, JComboBox jComboBox2) {
+        Object obj = arrObj.get(map[hero.getX()][hero.getY()]);
         if (obj.equals(RandomItems.STEP)) {
             jWindow.setText("STEP");
             jFight.setEnabled(false);
             jRun.setEnabled(false);
             jComboBox2.setEnabled(true);
-        } else if (obj.equals(RandomItems.VILLIAN))
+        } else if (obj.equals(RandomItems.VILLIAN)) {
             jWindow.setText("VILAiN");
+
+        }
         else if (obj.equals(RandomItems.BOSS))
             jWindow.setText("BOSS");
         else
@@ -105,7 +107,7 @@ public class GameController {
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map.length; j++) {
                 if (i == hero.getY() && j == hero.getX()) {
-                    map[i][j] = 777;
+//                    map[i][j] = 777;
                     continue;
                 }
                 else
@@ -118,5 +120,9 @@ public class GameController {
 
     public int[][] getMap() {
         return map;
+    }
+
+    public void setMap(int[][] map) {
+        this.map = map;
     }
 }
