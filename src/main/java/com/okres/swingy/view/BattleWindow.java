@@ -33,7 +33,7 @@ public class BattleWindow extends JFrame {
     JLabel jLabel1;
     private JPanel jPanel1 = new JPanel();
     private GameController gameController;
-    private int map[][];
+
 
     public BattleWindow() {
         initComponents();
@@ -77,15 +77,8 @@ public class BattleWindow extends JFrame {
         battleWindow.setFont(new Font("Noto Sans", 0, 14)); // NOI18N
         battleWindow.setPreferredSize(new Dimension(700, 600));
         battleWindow.setLayout(null);
-        /*
-         * Create map, vialians, and adjustment they on map
-         */
-        map = new int[((hero.getLevel() - 1) * 5 + 10 - (hero.getLevel() % 2))]
-                [((hero.getLevel() - 1) * 5 + 10 - (hero.getLevel() % 2))];
-        System.out.println("Map = " + map.length);
-        hero.setX(map.length / 2);
-        hero.setY(map.length / 2);
-        System.out.println("First center position X = " + hero.getX() + " " + "Y = " + hero.getY());
+        gameController.vilainGen(hero);
+
         GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -133,7 +126,7 @@ public class BattleWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("In jComboBox2 X = " + hero.getX() + " Y = " + hero.getY());
-                gameController.checkStep(jComboBox2.getSelectedIndex(), hero, map.length);
+                gameController.checkStep(jComboBox2.getSelectedIndex(), hero, gameController.getMap().length);
                 jLabel21.setText(String.valueOf(hero.getX()) + ", " + hero.getY());
                 int i = gameController.getRandomStepTruble();
                 jComboBox2.setEnabled(false);
@@ -145,6 +138,9 @@ public class BattleWindow extends JFrame {
         battleWindow.add(jComboBox2);
         jComboBox2.setBounds(220, 360, 100, 38);
 
+        /**
+         * Run button
+         */
         jButton5.setFont(new Font("Noto Sans", 1, 18)); // NOI18N
         jButton5.setForeground(new Color(1, 1, 1));
         jButton5.setText("Fight");
@@ -161,6 +157,9 @@ public class BattleWindow extends JFrame {
         battleWindow.add(jButton5);
         jButton5.setBounds(70, 460, 77, 30);
 
+        /**
+         * Fight button
+         */
         jButton7.setFont(new Font("Noto Sans", 1, 18)); // NOI18N
         jButton7.setForeground(new Color(1, 1, 1));
         jButton7.setText("Run");
@@ -195,7 +194,7 @@ public class BattleWindow extends JFrame {
         jLabel14.setForeground(new Color(1, 1, 1));
         jLabel14.setText("Level");
         battleWindow.add(jLabel14);
-        jLabel14.setBounds(60, 160, 48, 26);
+        jLabel14.setBounds(60, 160, 55, 26);
 
         jLabel15.setFont(new Font("Noto Sans", 1, 18)); // NOI18N
         jLabel15.setForeground(new Color(1, 1, 1));
