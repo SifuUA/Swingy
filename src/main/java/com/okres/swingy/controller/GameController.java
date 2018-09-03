@@ -69,15 +69,15 @@ public class GameController {
     public void fightImitattion(Hero hero, JLabel jWindow, JButton jFight, JButton jRun, JComboBox jComboBox2) {
         Object obj = arrObj.get(map[hero.getX()][hero.getY()]);
         if (obj.equals(RandomItems.STEP)) {
-            jWindow.setText("STEP");
+            jWindow.setText("<html>You are were very lucky you did not meet anyone on your way!<br/> " +
+                    " Go further!</html>");
             jFight.setEnabled(false);
             jRun.setEnabled(false);
             jComboBox2.setEnabled(true);
         } else if (obj.equals(RandomItems.VILLIAN)) {
-            jWindow.setText("VILAiN");
-
-        }
-        else if (obj.equals(RandomItems.BOSS))
+            jWindow.setText("<html>Unexpectedly on the road appeared villain, you have 2 options to try to escape" +
+                    " hoping for luck or in battle show all your skills!</html>");
+        } else if (obj.equals(RandomItems.BOSS))
             jWindow.setText("BOSS");
         else
             jWindow.setText("ARTIFACT");
@@ -107,10 +107,8 @@ public class GameController {
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map.length; j++) {
                 if (i == hero.getY() && j == hero.getX()) {
-//                    map[i][j] = 777;
                     continue;
-                }
-                else
+                } else
                     map[i][j] = getRandomStepTruble();
             }
             System.out.println(Arrays.toString(map[i]));
