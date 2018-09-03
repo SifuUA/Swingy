@@ -152,14 +152,7 @@ public class BattleWindow extends JFrame {
         jButton5.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int i = (int) (1 + Math.random() * 2);
-                if (i == 1) {
-                    hero.setHealth(hero.getHealth() - 20);
-                    jLabel1.setText("<html>It was very dangerous fight but you could win but the enemy did it to you - 20 HP</html>");
-                } else
-                    jLabel1.setText("<html>You are very easy to defeat the villain. It's good that you did not get caught by the BOSS!</html>");
-
-                System.out.println("Fight");
+                gameController.fight(hero, jLabel1, jLabel18, jLabel19, jLabel20);
                 jComboBox2.setEnabled(true);
                 jButton5.setEnabled(false);
                 jButton7.setEnabled(false);

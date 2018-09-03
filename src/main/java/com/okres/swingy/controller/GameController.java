@@ -3,15 +3,18 @@ package com.okres.swingy.controller;
 import com.okres.swingy.model.Character;
 import com.okres.swingy.model.Hero;
 import com.okres.swingy.model.items.RandomItems;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.swing.*;
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class GameController {
 
     private Map arrObj = new HashMap();
     private List<Character> characters;
+    @Getter
+    @Setter
     private int map[][];
 
     public void checkStep(int selectedIndex, Hero hero, int len) {
@@ -28,6 +31,7 @@ public class GameController {
         } else {
             JOptionPane.showMessageDialog(null, "You are win!!!");
             System.out.println("Yoг are win!");
+            System.exit(1);
         }
     }
 
@@ -107,6 +111,7 @@ public class GameController {
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map.length; j++) {
                 if (i == hero.getY() && j == hero.getX()) {
+                    map[i][j] = 3;
                     continue;
                 } else
                     map[i][j] = getRandomStepTruble();
@@ -116,11 +121,39 @@ public class GameController {
         System.out.println("First center position X = " + hero.getX() + " " + "Y = " + hero.getY());
     }
 
-    public int[][] getMap() {
-        return map;
+    public void fight(Hero hero, JLabel window, JLabel health, JLabel level, JLabel score) {
+        int i = (int) (1 + Math.random() * 2);
+        if (i == 1) {
+            hero.setHealth(hero.getHealth() - 20);
+            window.setText("<html>It was very dangerous fight but you could win" +
+                    " but the enemy did it to you - 20 HP</html>");
+            hero.setExperience(hero.getExperience() + 100);
+        } else {
+            window.setText("<html>You are very easy to defeat the villain. " +
+                    "It's good that you did not get caught by the BOSS!</html>");
+            hero.setExperience(hero.getExperience() + 50);
+        }
+        score.setText(String.valueOf(hero.getExperience()));
+        health.setText(String.valueOf(hero.getHealth()));
+        checkHealth(hero);
+        checkLevel(hero);
+        level.setText(String.valueOf(hero.getLevel()));
+        System.out.println("Fight");
     }
 
-    public void setMap(int[][] map) {
-        this.map = map;
+    public void checkHealth(Hero hero) {
+        if (hero.getHealth() <= 0) {
+            JOptionPane.showMessageDialog(null, "Your health is " +
+                    hero.getHealth() + " \nGame over :(");
+            System.exit(0);
+        }
+    }
+
+    public void checkLevel(Hero hero) {
+        int scoreOfNextLevel = (int) (hero.getLevel() * 1000 + Math.pow((hero.getLevel() - 1), 2) * 450);
+        if (hero.getExperience() >= scoreOfNextLevel && hero.getExperience() >= 1000)
+            hero.setLevel(hero.getLevel() + 1);
+        System.out.println("Next level " + scoreOfNextLevel);
+        System.out.println("Experiance" + hero.getExperience());
     }
 }
