@@ -36,7 +36,7 @@ public class GameController {
     }
 
     private boolean isPossibleStep(Hero hero, int len) {
-        if (hero.getX() > 0 && hero.getY() > 0 && hero.getX() < len &&
+        if (hero.getX() >= 0 && hero.getY() >= 0 && hero.getX() < len &&
                 hero.getY() < len)
             return true;
         return false;
@@ -127,11 +127,17 @@ public class GameController {
             hero.setHealth(hero.getHealth() - 20);
             window.setText("<html>It was very dangerous fight but you could win" +
                     " but the enemy did it to you - 20 HP</html>");
-            hero.setExperience(hero.getExperience() + 100);
+            if (hero.getLevel() == 0)
+                hero.setExperience(hero.getExperience() + 300);
+            else
+                hero.setExperience(hero.getExperience() + 100);
         } else {
             window.setText("<html>You are very easy to defeat the villain. " +
                     "It's good that you did not get caught by the BOSS!</html>");
-            hero.setExperience(hero.getExperience() + 50);
+            if (hero.getLevel() == 0)
+                hero.setExperience(hero.getExperience() + 300);
+            else
+                hero.setExperience(hero.getExperience() + 50);
         }
         score.setText(String.valueOf(hero.getExperience()));
         health.setText(String.valueOf(hero.getHealth()));
@@ -155,5 +161,21 @@ public class GameController {
             hero.setLevel(hero.getLevel() + 1);
         System.out.println("Next level " + scoreOfNextLevel);
         System.out.println("Experiance" + hero.getExperience());
+    }
+
+    public void run(Hero hero, JLabel window, JLabel health, JLabel level, JLabel score) {
+        int i = (int) (1 + Math.random() * 2);
+        if (i == 1) {
+            window.setText("<html>You so quickly ran away that you overtook the marathon runners well " +
+                    "and at the same time ran away from the villain</html>");
+        } else {
+            window.setText("<html>Luck was not on your side you have to fight!</html>");
+            fight(hero, window, health, level, score);
+        }
+        score.setText(String.valueOf(hero.getExperience()));
+        health.setText(String.valueOf(hero.getHealth()));
+        checkHealth(hero);
+        checkLevel(hero);
+        level.setText(String.valueOf(hero.getLevel()));
     }
 }

@@ -172,6 +172,7 @@ public class BattleWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 gameController.runButton(hero, jComboBox2.getSelectedIndex());
+                gameController.run(hero, jLabel1, jLabel18, jLabel19, jLabel20);
                 System.out.println("Run!");
                 jLabel21.setText(String.valueOf(hero.getX()) + ", " + hero.getY());
                 jComboBox2.setEnabled(true);
