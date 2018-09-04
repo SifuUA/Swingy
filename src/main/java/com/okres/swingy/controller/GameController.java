@@ -197,7 +197,9 @@ public class GameController {
             int i = (int) (1 + Math.random() * 2);
             if (hero.getDefence() != null) {
 
-            }else if (hero.getAttack() != null)
+            }else if (hero.getAttack() != null) {
+
+            }
         }
 
     }
