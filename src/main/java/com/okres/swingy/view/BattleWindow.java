@@ -152,7 +152,10 @@ public class BattleWindow extends JFrame {
         jButton5.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                gameController.fight(hero, jLabel1, jLabel18, jLabel19, jLabel20);
+                if (jLabel1.getText().equals("VILLAIN"))
+                    gameController.fight(hero, jLabel1, jLabel18, jLabel19, jLabel20, 0);
+                else if (jLabel1.getText().equals("BOSS"))
+                    gameController.fightBoos(hero, jLabel1, jLabel18, jLabel19, jLabel20);
                 jComboBox2.setEnabled(true);
                 jButton5.setEnabled(false);
                 jButton7.setEnabled(false);

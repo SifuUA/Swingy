@@ -121,19 +121,28 @@ public class GameController {
         System.out.println("First center position X = " + hero.getX() + " " + "Y = " + hero.getY());
     }
 
-    public void fight(Hero hero, JLabel window, JLabel health, JLabel level, JLabel score) {
+    public void fight(Hero hero, JLabel window, JLabel health, JLabel level, JLabel score, int flag) {
         int i = (int) (1 + Math.random() * 2);
         if (i == 1) {
             hero.setHealth(hero.getHealth() - 20);
-            window.setText("<html>It was very dangerous fight but you could win" +
-                    " but the enemy did it to you - 20 HP</html>");
+            if (flag != 1) {
+                window.setText("<html>It was very dangerous fight but you could win" +
+                        " but the enemy did it to you - 20 HP</html>");
+            } else {
+                window.setText("<html>Unfortunately you cant escape from villain and must fight." +
+                        "He damaged you - 20 HP");
+            }
             if (hero.getLevel() == 0)
                 hero.setExperience(hero.getExperience() + 300);
             else
                 hero.setExperience(hero.getExperience() + 100);
         } else {
-            window.setText("<html>You are very easy to defeat the villain. " +
-                    "It's good that you did not get caught by the BOSS!</html>");
+            if (flag != 1)
+                window.setText("<html>You are very easy to defeat the villain. " +
+                        "It's good that you did not get caught by the BOSS!</html>");
+            else
+                window.setText("<html>Unfortunately you cant escape from villain and must fight. But you was so amazing " +
+                        "and he did not hurt you!");
             if (hero.getLevel() == 0)
                 hero.setExperience(hero.getExperience() + 300);
             else
@@ -169,13 +178,27 @@ public class GameController {
             window.setText("<html>You so quickly ran away that you overtook the marathon runners well " +
                     "and at the same time ran away from the villain</html>");
         } else {
-            window.setText("<html>Luck was not on your side you have to fight!</html>");
-            fight(hero, window, health, level, score);
+            fight(hero, window, health, level, score, 1);
         }
         score.setText(String.valueOf(hero.getExperience()));
         health.setText(String.valueOf(hero.getHealth()));
         checkHealth(hero);
         checkLevel(hero);
         level.setText(String.valueOf(hero.getLevel()));
+    }
+
+    public void fightBoos(Hero hero, JLabel jLabel1, JLabel jLabel18, JLabel jLabel19, JLabel jLabel20) {
+        if (hero.getLevel() <= 3) {
+            jLabel1.setText("<html>The huge orc was too strong and knocked you out with a club the size of a house!" +
+                    " Maybe you still need to raise the level ...</html>");
+            hero.setHealth(hero.getHealth() - 1000);
+            jLabel18.setText(String.valueOf(hero.getHealth()));
+        } else if (hero.getLevel() <= 7) {
+            int i = (int) (1 + Math.random() * 2);
+            if (hero.getDefence() != null) {
+
+            }else if (hero.getAttack() != null)
+        }
+
     }
 }
