@@ -82,9 +82,17 @@ public class GameController {
             jWindow.setText("<html>Unexpectedly on the road appeared villain, you have 2 options to try to escape" +
                     " hoping for luck or in battle show all your skills!</html>");
         } else if (obj.equals(RandomItems.BOSS))
-            jWindow.setText("BOSS");
-        else
-            jWindow.setText("ARTIFACT");
+            jWindow.setText("<html>In front of you appears a huge orc the size of a five-story building " +
+                    "and you understand that the battle <br/>will not be easy ...</html>");
+        else {
+            jWindow.setText("<html>With your sharp eyesight not far under the tree, you saw a bottle of blue liquid " +
+                    "and something inside told you that it's worth it to drink .... + 10HP!</html>");
+            if (hero.getHealth() < 100)
+                hero.setHealth(hero.getHealth() + 10);
+            jFight.setEnabled(false);
+            jRun.setEnabled(false);
+            jComboBox2.setEnabled(true);
+        }
     }
 
     public void runButton(Hero hero, int selectedIndex) {
@@ -189,18 +197,26 @@ public class GameController {
 
     public void fightBoos(Hero hero, JLabel jLabel1, JLabel jLabel18, JLabel jLabel19, JLabel jLabel20) {
         if (hero.getLevel() <= 3) {
-            jLabel1.setText("<html>The huge orc was too strong and knocked you out with a club the size of a house!" +
+            jLabel1.setText("<html>The huge Orc was too strong and knocked you out with a club the size of a house!" +
                     " Maybe you still need to raise the level ...</html>");
             hero.setHealth(hero.getHealth() - 1000);
             jLabel18.setText(String.valueOf(hero.getHealth()));
         } else if (hero.getLevel() <= 7) {
             int i = (int) (1 + Math.random() * 2);
-            if (hero.getDefence() != null) {
-
-            }else if (hero.getAttack() != null) {
-
+            if (i == 1) {
+                jLabel1.setText("<html>Although the Orc was big and dangerous, you could defeat it!" +
+                        "You gain an artifact - piece of Orc`s ear which give you +50 HP </html>");
+                hero.setHealth(hero.getHealth() + 50);
+                if (hero.getHealth() > 100)
+                    hero.setHealth(100);
+            }else {
+                jLabel1.setText("<html>You bravely fought but missed one crushing blow " +
+                        "when the orc was already mortally wounded ... -70HP</html>");
+                hero.setHealth(hero.getHealth() - 70);
+                checkHealth(hero);
             }
         }
+
 
     }
 }

@@ -128,6 +128,7 @@ public class BattleWindow extends JFrame {
         jComboBox2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                jLabel18.setText(String.valueOf(hero.getHealth()));
                 System.out.println("In jComboBox2 X = " + hero.getX() + " Y = " + hero.getY());
                 gameController.checkStep(jComboBox2.getSelectedIndex(), hero, gameController.getMap().length);
                 jLabel21.setText(String.valueOf(hero.getX()) + ", " + hero.getY());
@@ -152,9 +153,9 @@ public class BattleWindow extends JFrame {
         jButton5.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (jLabel1.getText().equals("VILLAIN"))
+                if (jLabel1.getText().contains("villain"))
                     gameController.fight(hero, jLabel1, jLabel18, jLabel19, jLabel20, 0);
-                else if (jLabel1.getText().equals("BOSS"))
+                else
                     gameController.fightBoos(hero, jLabel1, jLabel18, jLabel19, jLabel20);
                 jComboBox2.setEnabled(true);
                 jButton5.setEnabled(false);
