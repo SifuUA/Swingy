@@ -20,17 +20,17 @@ public class GameController {
 
 
     public void checkStep(int selectedIndex, Hero hero, int len) {
-        if (isPossibleStep(hero, len)) {
-            if (selectedIndex == 0) {
-                hero.setY(hero.getY() + 1);
-            } else if (selectedIndex == 1) {
-                hero.setY(hero.getY() - 1);
-            } else if (selectedIndex == 2) {
-                hero.setX(hero.getX() + 1);
-            } else
-                hero.setX(hero.getX() - 1);
-            System.out.println("X Y = " + hero.getX() + " " + hero.getY());
-        } else {
+
+        if (selectedIndex == 0) {
+            hero.setY(hero.getY() + 1);
+        } else if (selectedIndex == 1) {
+            hero.setY(hero.getY() - 1);
+        } else if (selectedIndex == 2) {
+            hero.setX(hero.getX() + 1);
+        } else
+            hero.setX(hero.getX() - 1);
+        System.out.println("X Y = " + hero.getX() + " " + hero.getY());
+        if (!isPossibleStep(hero, len)) {
             JOptionPane.showMessageDialog(null, "You are win!!!");
             System.out.println("Yoг are win!");
             System.exit(1);
@@ -38,7 +38,9 @@ public class GameController {
     }
 
     private boolean isPossibleStep(Hero hero, int len) {
-        if (hero.getX() > 0 && hero.getY() > 0 && hero.getX() <= len - 1 &&
+        /*System.out.println("Hero X = " + hero.getX() + " Hero Y = " + hero.getY() +
+                "map[x][y] = " + map[hero.getX()][hero.getY()]);*/
+        if (hero.getX() >= 0 && hero.getY() >= 0 && hero.getX() <= len - 1 &&
                 hero.getY() <= len - 1)
             return true;
         return false;
@@ -74,6 +76,7 @@ public class GameController {
 
     public void fightImitattion(Hero hero, JLabel jWindow, JButton jFight, JButton jRun, JComboBox jComboBox2) {
         obj = arrObj.get(map[hero.getX()][hero.getY()]);
+
         if (obj.equals(RandomItems.STEP)) {
             jWindow.setText("<html>You are were very lucky you did not meet anyone on your way!<br/> " +
                     " Go further!</html>");
@@ -85,12 +88,14 @@ public class GameController {
                     " hoping for luck or in battle show all your skills!</html>");
         } else if (obj.equals(RandomItems.BOSS))
             jWindow.setText("<html>In front of you appears a huge orc the size of a five-story building " +
-                    "and you understand that the battle <br/>will not be easy ...</html>");
+                    "and you understand that the battle <br/>will not be easy ... " +
+                    "but you can try escape ...</html>");
         else {
             jWindow.setText("<html>With your sharp eyesight not far under the tree, you saw a bottle of blue liquid " +
                     "and something inside told you that it's worth it to drink .... + 10HP!</html>");
             if (hero.getHealth() < 100)
                 hero.setHealth(hero.getHealth() + 10);
+            map[hero.getX()][hero.getY()] = 3;
             jFight.setEnabled(false);
             jRun.setEnabled(false);
             jComboBox2.setEnabled(true);
@@ -178,7 +183,7 @@ public class GameController {
     }
 
     public void checkLevel(Hero hero) {
-        int scoreOfNextLevel = (int) (hero.getLevel() * 1000 + Math.pow((hero.getLevel() - 1), 2) * 450);
+        int scoreOfNextLevel = (int) ((hero.getLevel() + 1) * 1000 + Math.pow((hero.getLevel() + 1 - 1), 2) * 450);
         if (hero.getExperience() >= scoreOfNextLevel && hero.getExperience() >= 1000)
             hero.setLevel(hero.getLevel() + 1);
         System.out.println("Next level " + scoreOfNextLevel);
@@ -188,8 +193,12 @@ public class GameController {
     public void run(Hero hero, JLabel window, JLabel health, JLabel level, JLabel score) {
         int i = (int) (1 + Math.random() * 2);
         if (i == 1) {
-            window.setText("<html>You so quickly ran away that you overtook the marathon runners well " +
-                    "and at the same time ran away from the villain</html>");
+            if (obj.equals(RandomItems.VILLIAN)) {
+                window.setText("<html>You so quickly ran away that you overtook the marathon runners well " +
+                        "and at the same time ran away from the villain</html>");
+            }else {
+                window.setText("<html>You were lucky you managed to escape!</html>");
+            }
         } else {
             if (obj.equals(RandomItems.VILLIAN))
                 fight(hero, window, health, level, score, 1);
@@ -209,6 +218,7 @@ public class GameController {
                     " Maybe you still need to raise the level ...</html>");
             hero.setHealth(hero.getHealth() - 1000);
             jLabel18.setText(String.valueOf(hero.getHealth()));
+            checkHealth(hero);
         } else if (hero.getLevel() <= 7) {
             int i = (int) (1 + Math.random() * 2);
             if (i == 1) {
