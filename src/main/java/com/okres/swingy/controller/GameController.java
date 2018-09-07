@@ -13,9 +13,11 @@ public class GameController {
 
     private Map arrObj = new HashMap();
     private List<Character> characters;
+    private Object obj;
     @Getter
     @Setter
     private int map[][];
+
 
     public void checkStep(int selectedIndex, Hero hero, int len) {
         if (isPossibleStep(hero, len)) {
@@ -36,8 +38,8 @@ public class GameController {
     }
 
     private boolean isPossibleStep(Hero hero, int len) {
-        if (hero.getX() >= 0 && hero.getY() >= 0 && hero.getX() < len &&
-                hero.getY() < len)
+        if (hero.getX() > 0 && hero.getY() > 0 && hero.getX() <= len - 1 &&
+                hero.getY() <= len - 1)
             return true;
         return false;
     }
@@ -71,7 +73,7 @@ public class GameController {
     }
 
     public void fightImitattion(Hero hero, JLabel jWindow, JButton jFight, JButton jRun, JComboBox jComboBox2) {
-        Object obj = arrObj.get(map[hero.getX()][hero.getY()]);
+        obj = arrObj.get(map[hero.getX()][hero.getY()]);
         if (obj.equals(RandomItems.STEP)) {
             jWindow.setText("<html>You are were very lucky you did not meet anyone on your way!<br/> " +
                     " Go further!</html>");
@@ -136,25 +138,28 @@ public class GameController {
             if (flag != 1) {
                 window.setText("<html>It was very dangerous fight but you could win" +
                         " but the enemy did it to you - 20 HP</html>");
+                map[hero.getX()][hero.getY()] = 3;
             } else {
                 window.setText("<html>Unfortunately you cant escape from villain and must fight." +
                         "He damaged you - 20 HP");
             }
             if (hero.getLevel() == 0)
-                hero.setExperience(hero.getExperience() + 300);
+                hero.setExperience(hero.getExperience() + 500);
             else
-                hero.setExperience(hero.getExperience() + 100);
+                hero.setExperience(hero.getExperience() + 200);
         } else {
-            if (flag != 1)
+            if (flag != 1) {
                 window.setText("<html>You are very easy to defeat the villain. " +
                         "It's good that you did not get caught by the BOSS!</html>");
-            else
+                map[hero.getX()][hero.getY()] = 3;
+            } else
                 window.setText("<html>Unfortunately you cant escape from villain and must fight. But you was so amazing " +
                         "and he did not hurt you!");
+            map[hero.getX()][hero.getY()] = 3;
             if (hero.getLevel() == 0)
-                hero.setExperience(hero.getExperience() + 300);
+                hero.setExperience(hero.getExperience() + 500);
             else
-                hero.setExperience(hero.getExperience() + 50);
+                hero.setExperience(hero.getExperience() + 200);
         }
         score.setText(String.valueOf(hero.getExperience()));
         health.setText(String.valueOf(hero.getHealth()));
@@ -186,7 +191,10 @@ public class GameController {
             window.setText("<html>You so quickly ran away that you overtook the marathon runners well " +
                     "and at the same time ran away from the villain</html>");
         } else {
-            fight(hero, window, health, level, score, 1);
+            if (obj.equals(RandomItems.VILLIAN))
+                fight(hero, window, health, level, score, 1);
+            else
+                fightBoos(hero, window, health, level, score);
         }
         score.setText(String.valueOf(hero.getExperience()));
         health.setText(String.valueOf(hero.getHealth()));
@@ -206,17 +214,25 @@ public class GameController {
             if (i == 1) {
                 jLabel1.setText("<html>Although the Orc was big and dangerous, you could defeat it!" +
                         "You gain an artifact - piece of Orc`s ear which give you +50 HP </html>");
+                map[hero.getY()][hero.getY()] = 3;
                 hero.setHealth(hero.getHealth() + 50);
                 if (hero.getHealth() > 100)
                     hero.setHealth(100);
-            }else {
+            } else {
                 jLabel1.setText("<html>You bravely fought but missed one crushing blow " +
                         "when the orc was already mortally wounded ... -70HP</html>");
+                map[hero.getY()][hero.getY()] = 3;
                 hero.setHealth(hero.getHealth() - 70);
                 checkHealth(hero);
             }
         }
+    }
 
-
+    public void scoreStabilizatio(Hero hero) {
+        if (hero.getLevel() > 0) {
+            int score = (int) (hero.getLevel() * 1000 + Math.pow((hero.getLevel() - 1), 2) * 450);
+            if (hero.getExperience() < score)
+                hero.setExperience(score);
+        }
     }
 }

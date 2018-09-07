@@ -78,6 +78,7 @@ public class BattleWindow extends JFrame {
         battleWindow.setPreferredSize(new Dimension(700, 600));
         battleWindow.setLayout(null);
         gameController.vilainGen(hero);
+        gameController.scoreStabilizatio(hero);
 
         GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
