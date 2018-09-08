@@ -1,6 +1,6 @@
 package com.okres.swingy.view;
 
-import com.okres.swingy.controller.FileLoader;
+import com.okres.swingy.util.DbUtils;
 import com.okres.swingy.controller.PaneController;
 
 import javax.swing.*;
@@ -164,7 +164,7 @@ public class SelectWindow extends JFrame {
     }
 
     private void jButton2ActionPerformed(ActionEvent evt) throws SQLException {
-        new FileLoader().readFile();
+        new DbUtils().readFile();
     }
 
     private void jList1MouseClicked(MouseEvent evt) throws SQLException {

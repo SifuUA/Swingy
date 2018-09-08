@@ -1,8 +1,8 @@
 package com.okres.swingy.controller;
 
-import com.okres.swingy.model.Character;
 import com.okres.swingy.model.Hero;
 import com.okres.swingy.model.items.RandomItems;
+import com.okres.swingy.util.DbUtils;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,7 +12,6 @@ import java.util.*;
 public class GameController {
 
     private Map arrObj = new HashMap();
-    private List<Character> characters;
     private Object obj;
     @Getter
     @Setter
@@ -33,6 +32,7 @@ public class GameController {
         if (!isPossibleStep(hero, len)) {
             JOptionPane.showMessageDialog(null, "You are win!!!");
             System.out.println("Yoг are win!");
+            new DbUtils().updateHero(hero);
             System.exit(1);
         }
     }

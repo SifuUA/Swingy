@@ -1,6 +1,6 @@
 package com.okres.swingy.view;
 
-import com.okres.swingy.controller.FileLoader;
+import com.okres.swingy.util.DbUtils;
 import com.okres.swingy.model.Hero;
 
 import javax.swing.*;
@@ -211,7 +211,7 @@ public class CreateHeroWindow extends JFrame {
             else {
                 hero = new Hero(jTextField2.getText(), jSlider1.getValue(), gender,
                         String.valueOf(jComboBox1.getSelectedItem()));
-                new FileLoader().addNewHero(hero);
+                new DbUtils().addNewHero(hero);
                 BattleWindow battleWindow = new BattleWindow(hero);
                 battleWindow.pack();
                 battleWindow.setLocationRelativeTo(null);
