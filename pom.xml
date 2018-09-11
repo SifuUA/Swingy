@@ -30,15 +30,52 @@
                     <target>1.7</target>
                 </configuration>
             </plugin>
+
+            <!--Копирование зависимотей в папку lib/-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.1.1</version>
+                <configuration>
+
+                    <!--Все зависимости которые нужны для работы твоего приложения будут лежать здесь-->
+                    <outputDirectory>${project.build.directory}/lib/</outputDirectory>
+                    <overWriteReleases>true</overWriteReleases>
+                    <overWriteSnapshots>true</overWriteSnapshots>
+                    <overWriteIfNewer>true</overWriteIfNewer>
+
+                </configuration>
+                <executions>
+                    <execution>
+
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                    </execution>
+
+                </executions>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <configuration>
                     <archive>
+                        <!--Если надо конфигурировать манифест, то здесь-->
                         <manifest>
-                            <!-- Jar file entry point -->
+                            <addClasspath>true</addClasspath>
+                            <!--путь к зависимостям относительно запускаемого jar файла-->
+                            <!--ВСЕ ЗАВИСИМОСТИ ДОЛЖНЫ БУДУТ ПОСТАВЛЯТЬСЯ С ТВОИМ jar приложением. -->
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <classpathLayoutType>simple</classpathLayoutType>
+
                             <mainClass>com.okres.swingy.Main</mainClass>
                         </manifest>
+                        <!--<manifestEntries>-->
+                        <!--<Rsrc-Class-Path>${}</Rsrc-Class-Path>-->
+                        <!--</manifestEntries>-->
                     </archive>
                 </configuration>
             </plugin>
