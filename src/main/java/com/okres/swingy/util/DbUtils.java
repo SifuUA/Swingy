@@ -124,9 +124,11 @@ public class DbUtils {
             resultSet = statement.executeQuery("select * from heroes order by experiance desc limit 5");
 
             while (resultSet.next()) {
-                res.append(resultSet.getString("name")).append(" ")
-                        .append(resultSet.getInt("level")).append(" ")
-                        .append(resultSet.getInt("experiance") + "\n");
+                if (resultSet.getInt("experiance") > 0) {
+                    res.append(resultSet.getString("name")).append(" ")
+                            .append(resultSet.getInt("level")).append(" ")
+                            .append(resultSet.getInt("experiance") + "\n");
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
