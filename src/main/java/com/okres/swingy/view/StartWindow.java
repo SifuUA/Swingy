@@ -1,5 +1,7 @@
 package com.okres.swingy.view;
 
+import com.okres.swingy.util.DbUtils;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -24,6 +26,7 @@ public class StartWindow extends JFrame {
         jButton2 = new JButton();
         jButton3 = new JButton();
         jLabel1 = new JLabel();
+
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -107,7 +110,8 @@ public class StartWindow extends JFrame {
     }
 
     private void jButton2ActionPerformed(ActionEvent evt) {
-        JOptionPane.showMessageDialog(null, "Here will be SCORE!!!");
+
+        JOptionPane.showMessageDialog(null, new DbUtils().orderByScore());
     }
 
     private void jButton3ActionPerformed(ActionEvent evt) {

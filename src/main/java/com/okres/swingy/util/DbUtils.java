@@ -3,7 +3,6 @@ package com.okres.swingy.util;
 
 import com.okres.swingy.controller.PaneController;
 import com.okres.swingy.model.Hero;
-import com.okres.swingy.util.DbConnection;
 import lombok.Getter;
 import lombok.NonNull;
 
@@ -11,10 +10,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 
 public class DbUtils {
@@ -118,5 +114,23 @@ public class DbUtils {
             }
         }
 
+    }
+
+    public StringBuilder orderByScore() {
+        StringBuilder res = new StringBuilder();
+        try {
+            connection = DbConnection.getConnection();
+            Statement statement = connection.createStatement();
+            resultSet = statement.executeQuery("select * from heroes order by experiance desc limit 5");
+
+            while (resultSet.next()) {
+                res.append(resultSet.getString("name")).append(" ")
+                        .append(resultSet.getInt("level")).append(" ")
+                        .append(resultSet.getInt("experiance") + "\n");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return res;
     }
 }

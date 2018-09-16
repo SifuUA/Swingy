@@ -35,7 +35,7 @@ public class PaneController {
     public void heroNameList(JList jList) throws SQLException {
 
         Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT * from heroes");
+        ResultSet resultSet = statement.executeQuery("SELECT * from main.heroes");
 
         while (resultSet.next()) {
             hero = new Hero(Integer.parseInt(resultSet.getString(1)),

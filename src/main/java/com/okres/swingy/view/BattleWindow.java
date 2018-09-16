@@ -93,10 +93,10 @@ public class BattleWindow extends JFrame {
         battleWindow.add(jPanel1);
         jPanel1.setBounds(350, 50, 300, 500);
 
-        jLabel1.setText("<html><p>Welcome to the Game!!! <br/>" +
-                "You are in the center of the dark wood and your goal is to find" +
-                " road from it. <br/> Choose direction ang game will begin." +
-                "<br/>Good luck!</p></html>");
+        jLabel1.setText("<html><h2>Welcome to the Game!!! </h2> " +
+                "<p>You are in the center of the dark wood and your goal is to find" +
+                " road from it. <br/> Choose direction ang game will begin.</p>" +
+                "<h3>Good luck!</h3></html>");
         jLabel1.setVerticalAlignment(SwingConstants.CENTER);
         jLabel1.setFont(new Font("Noto Sans", 1, 14)); // NOI18N
         jLabel1.setForeground(new Color(1, 1, 1));

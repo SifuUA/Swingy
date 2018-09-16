@@ -24,6 +24,10 @@ public class Main {
         }
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                /*ClassLoader classLoader = getClass().getClassLoader();
+                String path = classLoader.getResource("game.sqlite").getPath();
+                System.out.println(path);*/
+
                 StartWindow startWindow = new StartWindow();
                 startWindow.pack();
                 startWindow.setLocationRelativeTo(null);

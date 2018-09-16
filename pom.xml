@@ -69,9 +69,11 @@
                             <!--путь к зависимостям относительно запускаемого jar файла-->
                             <!--ВСЕ ЗАВИСИМОСТИ ДОЛЖНЫ БУДУТ ПОСТАВЛЯТЬСЯ С ТВОИМ jar приложением. -->
                             <classpathPrefix>lib/</classpathPrefix>
+
                             <classpathLayoutType>simple</classpathLayoutType>
 
                             <mainClass>com.okres.swingy.Main</mainClass>
+
                         </manifest>
                         <!--<manifestEntries>-->
                         <!--<Rsrc-Class-Path>${}</Rsrc-Class-Path>-->

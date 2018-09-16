@@ -8,7 +8,9 @@ import java.sql.SQLException;
 
 public class DbConnection {
 
-    private static final String SQCONN = "jdbc:sqlite:game.sqlite";
+   //private static final String SQCONN = "jdbc:sqlite:resources:game.sqlite";
+   private static final String SQCONN = "jdbc:sqlite:C:/Users/Geek Machine/IdeaProjects/Swingy/game.sqlite";
+  // private static final String SQCONN = "jdbc:sqlite:src/main/resources/db/game.sqlite";
 
     public static Connection getConnection() throws SQLException {
         try {
