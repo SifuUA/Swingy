@@ -1,11 +1,12 @@
 package com.okres.swingy;
 
-import com.okres.swingy.view.StartWindow;
+import com.okres.swingy.view.console.StartConsole;
+import com.okres.swingy.view.gui.StartWindow;
 
 import javax.swing.*;
 
 public class Main {
-    public static void main(String args[]) {
+    public static void main(final String args[]) {
         try {
             for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -24,14 +25,16 @@ public class Main {
         }
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                /*ClassLoader classLoader = getClass().getClassLoader();
-                String path = classLoader.getResource("game.sqlite").getPath();
-                System.out.println(path);*/
-
-                StartWindow startWindow = new StartWindow();
-                startWindow.pack();
-                startWindow.setLocationRelativeTo(null);
-                startWindow.setVisible(true);
+                if (args[0].equalsIgnoreCase("gui")) {
+                    StartWindow startWindow = new StartWindow();
+                    startWindow.pack();
+                    startWindow.setLocationRelativeTo(null);
+                    startWindow.setVisible(true);
+                }else if (args[0].equalsIgnoreCase("console")) {
+                    System.out.println("The Game launch in console mod ...");
+                    StartConsole startConsole = new StartConsole();
+                    startConsole.choose();
+                }
             }
         });
     }

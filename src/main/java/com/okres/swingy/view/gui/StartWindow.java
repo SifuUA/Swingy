@@ -1,4 +1,4 @@
-package com.okres.swingy.view;
+package com.okres.swingy.view.gui;
 
 import com.okres.swingy.util.DbUtils;
 
