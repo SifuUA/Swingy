@@ -18,6 +18,7 @@ public class StartConsole {
                 gameController.initializeMap();
                 break;
             case 2:
+                System.out.println("Score Of the heroes:");
                 DbUtils dbUtils = new DbUtils();
                 System.out.println(dbUtils.orderByScore());
                 break;

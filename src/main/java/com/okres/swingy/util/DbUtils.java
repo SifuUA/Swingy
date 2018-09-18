@@ -126,8 +126,8 @@ public class DbUtils {
             while (resultSet.next()) {
                 if (resultSet.getInt("experiance") > 0) {
                     res.append(resultSet.getString("name")).append(" ")
-                            .append(resultSet.getInt("level")).append(" ")
-                            .append(resultSet.getInt("experiance") + "\n");
+                            .append(resultSet.getInt("level")).append(" ").append("level").append(" ")
+                            .append(resultSet.getInt("experiance") + " points\n");
                 }
             }
         } catch (SQLException e) {
