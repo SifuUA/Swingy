@@ -1,29 +1,49 @@
 package com.okres.swingy.view.console;
 
 import com.okres.swingy.controller.GameController;
+import com.okres.swingy.controller.PaneController;
 import com.okres.swingy.util.DbUtils;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class StartConsole {
+    private GameController gameController = new GameController();
+    private ConsolePaneController paneController = new ConsolePaneController();
+
     public void choose() {
         Scanner scanner = new Scanner(System.in);
-        String a = String.format("%s\n%s\n%s\n%s",
-                "If you want:", "Play game - input 1", "See score - input 2", "Exit - input 3");
-        System.out.println(a);
-        int i = scanner.nextInt();
-        switch (i) {
-            case 1:
-                GameController gameController = new GameController();
-                gameController.initializeMap();
-                break;
-            case 2:
-                System.out.println("Score Of the heroes:");
-                DbUtils dbUtils = new DbUtils();
-                System.out.println(dbUtils.orderByScore());
-                break;
-            case 3:
-                System.exit(1);
+        paneController.printMenu();
+        while (scanner.hasNext()) {
+            String j = scanner.next();
+            if (!j.equals("1") && !j.equals("2") && !j.equals("3")) {
+                paneController.printError();
+                paneController.printMenu();
+                continue;
+            }
+            int i = Integer.parseInt(j);
+            switch (i) {
+                case 1:
+                    gameController.initializeMap();
+                    try {
+                        paneController.heroNameList();
+                        paneController.printHeroes();
+                        paneController.getIdOfHero();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case 2:
+                    System.out.println("Score Of the heroes:");
+                    DbUtils dbUtils = new DbUtils();
+                    System.out.println(dbUtils.orderByScore());
+                    paneController.printMenu();
+                    break;
+                case 3:
+                    System.exit(1);
+            }
         }
     }
+
+
 }

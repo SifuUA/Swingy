@@ -4,9 +4,10 @@ import com.okres.swingy.view.console.StartConsole;
 import com.okres.swingy.view.gui.StartWindow;
 
 import javax.swing.*;
+import java.net.URL;
 
 public class Main {
-    public static void main(final String args[]) {
+    public static void main(final String args[]) throws ClassNotFoundException {
         try {
             for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -25,6 +26,7 @@ public class Main {
         }
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                if (args.length > 0) {
                 if (args[0].equalsIgnoreCase("gui")) {
                     StartWindow startWindow = new StartWindow();
                     startWindow.pack();
@@ -34,7 +36,7 @@ public class Main {
                     System.out.println("The Game launch in console mod ...");
                     StartConsole startConsole = new StartConsole();
                     startConsole.choose();
-                }
+                }}
             }
         });
     }
