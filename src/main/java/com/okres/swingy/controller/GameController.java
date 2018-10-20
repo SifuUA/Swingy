@@ -38,8 +38,6 @@ public class GameController {
     }
 
     private boolean isPossibleStep(Hero hero, int len) {
-        /*System.out.println("Hero X = " + hero.getX() + " Hero Y = " + hero.getY() +
-                "map[x][y] = " + map[hero.getX()][hero.getY()]);*/
         if (hero.getX() >= 0 && hero.getY() >= 0 && hero.getX() <= len - 1 &&
                 hero.getY() <= len - 1)
             return true;

@@ -1,7 +1,7 @@
 package com.okres.swingy.view.console;
 
+import com.okres.swingy.controller.ConsolePaneController;
 import com.okres.swingy.controller.GameController;
-import com.okres.swingy.controller.PaneController;
 import com.okres.swingy.util.DbUtils;
 
 import java.sql.SQLException;

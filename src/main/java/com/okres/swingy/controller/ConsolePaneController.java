@@ -1,4 +1,4 @@
-package com.okres.swingy.view.console;
+package com.okres.swingy.controller;
 
 import com.okres.swingy.model.Hero;
 import com.okres.swingy.util.DbConnection;
@@ -10,11 +10,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ConsolePaneController  {
+public class ConsolePaneController {
 
-    Connection connection;
+    private GameController gameController = new GameController();
+
+    private Connection connection;
     public static ArrayList<Hero> heroArrayList = new ArrayList<>();
-    Hero hero;
+    private Hero hero;
 
     public ConsolePaneController() {
         try {
@@ -68,24 +70,28 @@ public class ConsolePaneController  {
     public void getIdOfHero() {
         System.out.println("\nPlease enter the id of the chosen hero:");
         Scanner scanner = new Scanner(System.in);
+        Hero choosenHero;
 
         while (scanner.hasNext()) {
             String i = scanner.next();
-            if (idValidate(i)) {
-                System.out.println(i);
-            }else {
+            if ((choosenHero = idValidate(i)) != null) {
+                System.out.println(choosenHero);
+                gameController.vilainGen(choosenHero);
+                gameController.scoreStabilizatio(choosenHero);
+                System.out.println(choosenHero);
+            } else {
                 printError();
             }
         }
     }
 
-    private boolean idValidate(String i) {
+    private Hero idValidate(String i) {
         for (Hero hero : heroArrayList) {
             if (String.valueOf(hero.getId()).equals(i)) {
-                return true;
+                return hero;
             }
         }
-        return false;
+        return null;
     }
 
     public void printError() {
