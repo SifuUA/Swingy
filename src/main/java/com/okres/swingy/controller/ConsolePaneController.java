@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class ConsolePaneController {
 
     private GameController gameController = new GameController();
-    private ConsoleGameController consoleGameContgroller = new ConsoleGameController();
+    private ConsoleGameController consoleGameController = new ConsoleGameController();
 
     private Connection connection;
     public static ArrayList<Hero> heroArrayList = new ArrayList<>();
@@ -28,10 +28,6 @@ public class ConsolePaneController {
         if (this.connection == null) {
             System.exit(1);
         }
-    }
-
-    public boolean isDatabaseConnected() {
-        return this.connection != null;
     }
 
     public void heroNameList() throws SQLException {
@@ -75,7 +71,7 @@ public class ConsolePaneController {
         while (scanner.hasNext()) {
             String i = scanner.next();
             if ((hero = idValidate(i)) != null) {
-                System.out.println(hero);
+                //System.out.println(hero);
                 gameController.scoreStabilizatio(hero);
                 break;
             } else {
@@ -123,8 +119,8 @@ public class ConsolePaneController {
                 "\nand your goal is to find road from it." +
                 "\nChoose direction ang game will begin." +
                 "\nGood luck!\n");
+        consoleGameController.consoleVilainGen(hero);
         printMoveMessage();
-        consoleGameContgroller.consoleVilainGen(hero);
         while (sc.hasNext() && hero.getHealth() > 0) {
             String step = sc.next();
             if (step.equals("1") ||
@@ -133,10 +129,13 @@ public class ConsolePaneController {
                     step.equals("4")) {
                 int i = Integer.parseInt(step);
                 printStatus();
-                consoleGameContgroller.checkStep(i, hero, consoleGameContgroller.getMap().length);
-                consoleGameContgroller.consoleFightImitattion(hero);
+                consoleGameController.checkStep(i, hero, consoleGameController.getMap().length);
+                consoleGameController.consoleFightImitattion(hero);
+                consoleGameController.checkHealth(hero);
             } else {
                 printError();
+                System.out.println("");
+                printMoveMessage();
             }
         }
     }
@@ -148,7 +147,6 @@ public class ConsolePaneController {
                         "Move South -> input 3\n" +
                         "Move North -> input 4");
     }
-
 
 
 }

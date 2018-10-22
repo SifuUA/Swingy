@@ -169,7 +169,7 @@ public class GameController {
         checkHealth(hero);
         checkLevel(hero);
         level.setText(String.valueOf(hero.getLevel()));
-        System.out.println("Fight");
+        //System.out.println("Fight");
     }
 
     public void checkHealth(Hero hero) {
