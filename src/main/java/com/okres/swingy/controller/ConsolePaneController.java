@@ -13,6 +13,7 @@ import java.util.Scanner;
 public class ConsolePaneController {
 
     private GameController gameController = new GameController();
+    private ConsoleGameController cgc = new ConsoleGameController();
 
     private Connection connection;
     public static ArrayList<Hero> heroArrayList = new ArrayList<>();
@@ -70,15 +71,14 @@ public class ConsolePaneController {
     public void getIdOfHero() {
         System.out.println("\nPlease enter the id of the chosen hero:");
         Scanner scanner = new Scanner(System.in);
-        Hero choosenHero;
 
         while (scanner.hasNext()) {
             String i = scanner.next();
-            if ((choosenHero = idValidate(i)) != null) {
-                System.out.println(choosenHero);
-                gameController.vilainGen(choosenHero);
-                gameController.scoreStabilizatio(choosenHero);
-                System.out.println(choosenHero);
+            if ((hero = idValidate(i)) != null) {
+                System.out.println(hero);
+                gameController.vilainGen(hero);
+                gameController.scoreStabilizatio(hero);
+                break;
             } else {
                 printError();
             }
@@ -98,9 +98,53 @@ public class ConsolePaneController {
         System.out.println("Error, please repeat.");
     }
 
+    public void printMessage(String message) {
+        System.out.println(message);
+    }
+
     public void printMenu() {
         String a = String.format("%s\n%s\n%s\n%s",
                 "If you want:", "Play game - input 1", "See score - input 2", "Exit - input 3");
         System.out.println(a);
+    }
+
+    public void printStatus() {
+        StringBuilder sb = new StringBuilder();
+        sb.
+                append("Name: ").append(hero.getName()).append("| ").
+                append("Health: ").append(String.valueOf(hero.getHealth())).append("| ").
+                append("Level: ").append(String.valueOf(hero.getLevel())).append("| ").
+                append("Experience: ").append(String.valueOf(hero.getExperience()));
+        System.out.println(sb);
+    }
+
+    public void gameProcess() {
+        Scanner sc = new Scanner(System.in);
+        printMessage("Welcome to the Game!!!\nYou are in the center of the dark wood " +
+                "\nand your goal is to find road from it." +
+                "\nChoose direction ang game will begin." +
+                "\nGood luck!\n");
+        printMoveMessage();
+        while (sc.hasNext() && hero.getHealth() > 0) {
+            String step = sc.next();
+            if (step.equals("1") ||
+                    step.equals("2") ||
+                    step.equals("3") ||
+                    step.equals("4")) {
+                int i = Integer.parseInt(step);
+                printStatus();
+                cgc.checkStep(i, hero, gameController.getMap().length);
+            } else {
+                printError();
+            }
+        }
+    }
+
+    private void printMoveMessage() {
+        System.out.println(
+                "Move East -> input 1\n" +
+                        "Move West -> input 2\n" +
+                        "Move South -> input 3\n" +
+                        "Move North -> input 4");
     }
 }

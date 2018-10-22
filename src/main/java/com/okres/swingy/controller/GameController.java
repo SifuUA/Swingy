@@ -37,7 +37,7 @@ public class GameController {
         }
     }
 
-    private boolean isPossibleStep(Hero hero, int len) {
+    protected boolean isPossibleStep(Hero hero, int len) {
         if (hero.getX() >= 0 && hero.getY() >= 0 && hero.getX() <= len - 1 &&
                 hero.getY() <= len - 1)
             return true;

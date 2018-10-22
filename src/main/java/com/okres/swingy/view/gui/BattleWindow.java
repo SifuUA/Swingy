@@ -130,7 +130,7 @@ public class BattleWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 jLabel18.setText(String.valueOf(hero.getHealth()));
-                System.out.println("In jComboBox2 X = " + hero.getX() + " Y = " + hero.getY());
+                //System.out.println("In jComboBox2 X = " + hero.getX() + " Y = " + hero.getY());
                 gameController.checkStep(jComboBox2.getSelectedIndex(), hero, gameController.getMap().length);
                 jLabel21.setText(String.valueOf(hero.getX()) + ", " + hero.getY());
                 //int i = gameController.getRandomStepTruble();

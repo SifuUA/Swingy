@@ -29,6 +29,7 @@ public class StartConsole {
                         paneController.heroNameList();
                         paneController.printHeroes();
                         paneController.getIdOfHero();
+                        paneController.gameProcess();
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
