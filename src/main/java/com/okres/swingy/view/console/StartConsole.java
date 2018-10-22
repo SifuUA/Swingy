@@ -1,5 +1,6 @@
 package com.okres.swingy.view.console;
 
+import com.okres.swingy.controller.ConsoleGameController;
 import com.okres.swingy.controller.ConsolePaneController;
 import com.okres.swingy.controller.GameController;
 import com.okres.swingy.util.DbUtils;
@@ -10,6 +11,7 @@ import java.util.Scanner;
 public class StartConsole {
     private GameController gameController = new GameController();
     private ConsolePaneController paneController = new ConsolePaneController();
+    private ConsoleGameController consoleGameContgroller = new ConsoleGameController();
 
     public void choose() {
         Scanner scanner = new Scanner(System.in);
@@ -24,12 +26,13 @@ public class StartConsole {
             int i = Integer.parseInt(j);
             switch (i) {
                 case 1:
-                    gameController.initializeMap();
+                    consoleGameContgroller.initializeMap();
                     try {
                         paneController.heroNameList();
                         paneController.printHeroes();
                         paneController.getIdOfHero();
                         paneController.gameProcess();
+
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }

@@ -133,7 +133,6 @@ public class BattleWindow extends JFrame {
                 //System.out.println("In jComboBox2 X = " + hero.getX() + " Y = " + hero.getY());
                 gameController.checkStep(jComboBox2.getSelectedIndex(), hero, gameController.getMap().length);
                 jLabel21.setText(String.valueOf(hero.getX()) + ", " + hero.getY());
-                //int i = gameController.getRandomStepTruble();
                 jComboBox2.setEnabled(false);
                 jButton5.setEnabled(true);
                 jButton7.setEnabled(true);

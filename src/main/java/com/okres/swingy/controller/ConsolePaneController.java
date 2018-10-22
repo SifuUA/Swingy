@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class ConsolePaneController {
 
     private GameController gameController = new GameController();
-    private ConsoleGameController cgc = new ConsoleGameController();
+    private ConsoleGameController consoleGameContgroller = new ConsoleGameController();
 
     private Connection connection;
     public static ArrayList<Hero> heroArrayList = new ArrayList<>();
@@ -76,7 +76,6 @@ public class ConsolePaneController {
             String i = scanner.next();
             if ((hero = idValidate(i)) != null) {
                 System.out.println(hero);
-                gameController.vilainGen(hero);
                 gameController.scoreStabilizatio(hero);
                 break;
             } else {
@@ -125,6 +124,7 @@ public class ConsolePaneController {
                 "\nChoose direction ang game will begin." +
                 "\nGood luck!\n");
         printMoveMessage();
+        consoleGameContgroller.consoleVilainGen(hero);
         while (sc.hasNext() && hero.getHealth() > 0) {
             String step = sc.next();
             if (step.equals("1") ||
@@ -133,7 +133,8 @@ public class ConsolePaneController {
                     step.equals("4")) {
                 int i = Integer.parseInt(step);
                 printStatus();
-                cgc.checkStep(i, hero, gameController.getMap().length);
+                consoleGameContgroller.checkStep(i, hero, consoleGameContgroller.getMap().length);
+                consoleGameContgroller.consoleFightImitattion(hero);
             } else {
                 printError();
             }
@@ -147,4 +148,7 @@ public class ConsolePaneController {
                         "Move South -> input 3\n" +
                         "Move North -> input 4");
     }
+
+
+
 }
