@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 public class ConsoleGameController extends GameController {
     private Map arrObj = new HashMap();
@@ -34,20 +35,38 @@ public class ConsoleGameController extends GameController {
         }
     }
 
-    public void consoleFightImitattion(Hero hero) {
+    public void consoleFightImitattion(Hero hero, Scanner sc) {
         obj = arrObj.get(map[hero.getX()][hero.getY()]);
         int i = (int) (1 + Math.random() * 2);
+        int j;
         if (obj.equals(RandomItems.STEP)) {
             System.out.println("You are were very lucky you did not meet anyone on your way! " +
                     " Go further!");
         } else if (obj.equals(RandomItems.VILLIAN)) {
             System.out.println("Unexpectedly on the road appeared villain ");
-            fight(hero, i);
+            System.out.println("You have to options:\n Fight -> input 1\n Run -> input 2 ");
+            while (sc.hasNext()) {
+                String str = sc.next();
+                if (str.equals("1") || str.equals("2")) {
+                    j = Integer.parseInt(str);
+                    if (j == 1)
+                        fight(hero, i);
+                    else
+                        run(hero);
+                    System.out.println(
+                            "Move East -> input 1\n" +
+                                    "Move West -> input 2\n" +
+                                    "Move South -> input 3\n" +
+                                    "Move North -> input 4");
+                    break;
+                } else {
+                    System.out.println("Error input!");
+                }
+            }
 
         } else if (obj.equals(RandomItems.BOSS)) {
-            System.out.println("In front of you appears a huge orc the size of a five-story building " +
-                    "and you understand that the battle will not be easy ... " +
-                    "but you can try escape ...");
+            System.out.println("In front of you appears a huge orc the size of a five-story building\n" +
+                    "and you understand that the battle will not be easy ... ");
             fightBoos(hero);
         } else {
             System.out.println("With your sharp eyesight not far under the tree, you saw a bottle of blue liquid " +
@@ -56,6 +75,26 @@ public class ConsoleGameController extends GameController {
                 hero.setHealth(hero.getHealth() + 10);
             map[hero.getX()][hero.getY()] = 3;
         }
+    }
+
+    private void run(Hero hero) {
+
+        int i = (int) (1 + Math.random() * 2);
+        if (i == 1) {
+            if (obj.equals(RandomItems.VILLIAN)) {
+                System.out.println("You so quickly ran away that you overtook the marathon runners well\n " +
+                        "and at the same time ran away from the villain");
+            } else {
+                System.out.println("You were lucky you managed to escape!");
+            }
+        } else {
+            if (obj.equals(RandomItems.VILLIAN))
+                fight(hero, 1);
+            else
+                fightBoos(hero);
+        }
+        checkHealth(hero);
+        checkLevel(hero);
     }
 
     public void consoleVilainGen(Hero hero) {

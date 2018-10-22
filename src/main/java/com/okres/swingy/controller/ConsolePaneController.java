@@ -115,6 +115,7 @@ public class ConsolePaneController {
 
     public void gameProcess() {
         Scanner sc = new Scanner(System.in);
+        int tmp = 0;
         printMessage("Welcome to the Game!!!\nYou are in the center of the dark wood " +
                 "\nand your goal is to find road from it." +
                 "\nChoose direction ang game will begin." +
@@ -122,6 +123,8 @@ public class ConsolePaneController {
         consoleGameController.consoleVilainGen(hero);
         printMoveMessage();
         while (sc.hasNext() && hero.getHealth() > 0) {
+            if (tmp++ != 0)
+                printMoveMessage();
             String step = sc.next();
             if (step.equals("1") ||
                     step.equals("2") ||
@@ -130,7 +133,7 @@ public class ConsolePaneController {
                 int i = Integer.parseInt(step);
                 printStatus();
                 consoleGameController.checkStep(i, hero, consoleGameController.getMap().length);
-                consoleGameController.consoleFightImitattion(hero);
+                consoleGameController.consoleFightImitattion(hero, sc);
                 consoleGameController.checkHealth(hero);
             } else {
                 printError();
@@ -141,11 +144,11 @@ public class ConsolePaneController {
     }
 
     private void printMoveMessage() {
-        System.out.println(
-                "Move East -> input 1\n" +
-                        "Move West -> input 2\n" +
-                        "Move South -> input 3\n" +
-                        "Move North -> input 4");
+            System.out.println(
+                    "Move East -> input 1\n" +
+                            "Move West -> input 2\n" +
+                            "Move South -> input 3\n" +
+                            "Move North -> input 4");
     }
 
 

@@ -1,8 +1,5 @@
 package com.okres.swingy.model;
 
-import com.okres.swingy.model.items.Armor;
-import com.okres.swingy.model.items.Weapon;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
